@@ -54,8 +54,8 @@ function MainHomePage(props) {
                                         Nguyễn Văn Quỳnh - 0344 063 164
                                     </p>
                                     <span className="delivery">Giao hàng tới</span>
-                                    <div className="d-flex align-items-center justify-content-between row">
-                                        <address className="mb-0 col-9">986, Ngô Quyền, Phường An Hải Bắc, Quận Sơn Trà, Thành phố Đà Nẵng</address>
+                                    <div className="d-flex align-items-center justify-content-between">
+                                        <address className="mb-0 pl-0 col-9">986, Ngô Quyền, Phường An Hải Bắc, Quận Sơn Trà, Thành phố Đà Nẵng</address>
                                         <InProcessing />
                                     </div>
                                 </section>
