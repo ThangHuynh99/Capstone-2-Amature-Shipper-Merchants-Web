@@ -104,19 +104,19 @@ body {
 }
 
 .menu-in-progress {
-    color: #f2994a;
+    color: #f2994a !important;
 }
 
 .menu-picked {
-    color: #8950fc;
+    color: rgb(0 132 255) !important;
 }
 
 .menu-completed {
-    color: #1bc5bd;
+    color: #1bc5bd !important;
 }
 
 .menu-canceled {
-    color: #f64e60;
+    color: #f64e60 !important;
 }
 
 .card {
