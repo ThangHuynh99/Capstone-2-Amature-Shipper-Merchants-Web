@@ -15,7 +15,7 @@ function MainHomePage(props) {
                     <header className="card-header border-0">
                         <div className="card-title py-4">
                             <h3 className="card-label">
-                                <span className="d-block title">Đanh sách đơn</span>
+                                <span className="d-block title">Danh sách đơn</span>
                                 <span className="d-block text-time mt-2 font-size-sm">trong 24 giờ</span>
                             </h3>
                         </div>
