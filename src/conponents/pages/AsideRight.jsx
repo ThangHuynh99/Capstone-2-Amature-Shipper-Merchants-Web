@@ -1,19 +1,51 @@
-import React from "react";
 import PropTypes from "prop-types";
 import Signout from "../LogOut";
 import Blank from "../../assets/media/blank.png";
 import { Link } from "react-router-dom";
+import { db } from "../../firebase";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 InforHomePage.propTypes = {
-    name: PropTypes.string,
+    
 };
 
 InforHomePage.defaultProps = {
-    name: "",
+    
 };
 
 function InforHomePage(props) {
-    const { name } = props;
+
+    const { currentUser } = useAuth();
+
+    const [input, setInput] = useState({
+        fullname: "",
+        contact: "",
+        address: "",
+    });
+
+    //get data
+    useEffect(() => {
+        async function fetchUserInfor() {
+            try {
+                await db
+                    .collection("ShopProfile")
+                    .doc(currentUser.uid)
+                    .get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            setInput(doc.data());
+                            console.log(input);
+                        } else {
+                            console.log("No such document!");
+                        }
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchUserInfor();
+    });
 
     return (
         <aside className="sidebar d-flex flex-row-auto flex-column">
@@ -30,7 +62,7 @@ function InforHomePage(props) {
                                 />
                                 <i className="symbol-badge symbol-badge-bottom bg-success" />
                             </div>
-                            <h4 className="font-weight-bold my-2">{name}</h4>
+                            <h4 className="font-weight-bold my-2">{input.fullname}</h4>
                             <div className="text-muted mb-2">Shop Owner</div>
                             <span className="label label-light-warning label-inline font-weight-bold label-lg">Active</span>
                             <div className="mt-10">

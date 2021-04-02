@@ -13,12 +13,17 @@ export default function Profile() {
         uid: currentUser.uid,
     });
 
+    function changeRender() {
+
+    }
+    
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
                 <MainProfile user={userInfor} />
-                <AsideRight name={currentUser.email} />
+                
+                <AsideRight />
             </div>
         </div>
     );
