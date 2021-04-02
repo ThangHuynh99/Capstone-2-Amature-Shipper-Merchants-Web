@@ -7,11 +7,11 @@ function Header(props) {
     return (
         <header className="header header-fixed">
             <div className="d-flex flex-grow-1 align-items-center rounded-top-xl">
-                <div className="d-flex align-items-center justify-content-start flex-wrap container-fluid ">
+                <div className="d-flex align-items-center justify-content-between flex-wrap container-fluid ">
                     <ul className="menu-nav">
                         <li className="menu-item special">
                             <a href="#" className="menu-link">
-                                <span className="menu-new">Tạo mới</span>
+                                <span className="menu-recent">Đơn gần đây</span>
                             </a>
                         </li>
                         <li className="menu-item">
@@ -35,6 +35,11 @@ function Header(props) {
                             </a>
                         </li>
                     </ul>
+                    <div className="d-flex align-items-center py-3 py-lg-2">
+                        <a href="#" className="btn btn-icon btn-light h-40px w-40px">
+                            <i class="fad fa-file-alt pallette-purple"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
