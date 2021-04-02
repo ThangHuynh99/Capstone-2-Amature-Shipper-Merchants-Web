@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import Signout from "../LogOut";
 import Blank from "../../assets/media/blank.png";
+import AbstractThree from "../../assets/media/abstract-3.svg";
+import AbstractTwo from "../../assets/media/abstract-2.svg";
 import { Link } from "react-router-dom";
 import { db } from "../../firebase";
 import React, { useState, useEffect } from "react";
@@ -50,7 +52,7 @@ function InforHomePage(props) {
     return (
         <aside className="sidebar d-flex flex-row-auto flex-column">
             <div className="d-flex flex-column pb-10 pt-9 px-5 px-lg-10">
-                <section className="card card-custom card-shadowless bg-white gutter-b">
+                <section className="card card-custom bgi-no-repeat gutter-b" style={{backgroundPosition: 'right top', backgroundSize: '30% auto', backgroundImage: `url(${AbstractThree})`}}>
                     <div className="card-body pt-15">
                         <div className="text-center mb-10">
                             <div className="symbol symbol-60 symbol-circle symbol-xl-90">
@@ -64,7 +66,7 @@ function InforHomePage(props) {
                             </div>
                             <h4 className="font-weight-bold my-2">{input.fullname}</h4>
                             <div className="text-muted mb-2">Shop Owner</div>
-                            <span className="label label-light-warning label-inline font-weight-bold label-lg">Active</span>
+                            <span className="label label-light-warning label-inline font-weight-bold label-lg">Hoạt động</span>
                             <div className="mt-10">
                                 <Link to="/profile">
                                     {" "}
@@ -85,7 +87,7 @@ function InforHomePage(props) {
                         </div>
                     </div>
                 </section>
-                <section className="card card-custom card-shadowless bg-white gutter-b">
+                <section className="card card-custom bgi-no-repeat gutter-b" style={{backgroundPosition: 'right top', backgroundSize: '30% auto', backgroundImage: `url(${AbstractTwo})`}}>
                     <div className="card-header border-0 pt-5">
                         <h3 className="card-title align-items-start flex-column">
                             <span className="title">Thông báo gần đây</span>
