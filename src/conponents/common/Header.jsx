@@ -49,13 +49,13 @@ function Header(props) {
                                 <i class="fad fa-spinner-third menu-in-progress"></i>
                             </a>
                             <a href="#" className="btn btn-icon btn-light h-40px w-40px mr-3">
-                            <i class="fad fa-user-check text-primary-2"></i>
+                                <i class="fad fa-user-check text-primary-2"></i>
                             </a>
                             <a href="#" className="btn btn-icon btn-light h-40px w-40px mr-3">
-                            <i class="fad fa-box-check menu-completed"></i>
+                                <i class="fad fa-box-check menu-completed"></i>
                             </a>
                             <a href="#" className="btn btn-icon btn-light h-40px w-40px mr-3">
-                            <i class="fas fa-times-circle text-danger-2"></i>
+                                <i class="fas fa-times-circle text-danger-2"></i>
                             </a>
                         </div>
 
