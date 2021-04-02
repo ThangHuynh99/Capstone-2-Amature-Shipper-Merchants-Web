@@ -18,73 +18,134 @@ function MainProfile(props) {
     const { user } = props;
     const history = useHistory();
 
-    const district = ["Hải Châu", "Cẩm Lệ", "Thanh Khê", "Liên Chiểu", "Ngũ Hành Sơn", "Sơn Trà"];
+    // Dữ liệu các quận trong thành phố Đà Nẵng
+    const dataList = {
+        "Quận Cẩm Lệ": ["Phường Hòa An", "Phường Hòa Phát", "Phường Hòa Thọ Đông", "Phường Hòa Thọ Tây", "Phường Hòa Xuân", "Phường Khuê Trung"],
+        "Quận Hải Châu": [
+            "Phường Bình Hiên",
+            "Phường Bình Thuận",
+            "Phường Hải Châu 1",
+            "Phường Hải Châu 2",
+            "Phường Hòa Cương Bắc",
+            "Phường Hòa Cường Nam",
+            "Phường Hòa Thuận Đông",
+            "Phường Hòa Thuận Tây",
+            "Phường Nam Dương",
+            "Phường Phước Ninh",
+            "Phường Thạch Thang",
+            "Phường Thạnh Bình",
+            "Phường Thuận Phước",
+        ],
+        "Quận Liên Chiểu": ["Phường Hòa Hiệp Bắc", "Phường Hòa Hiệp Nam", "Phường Hòa Khánh Bắc", "Phường Hòa Khánh Nam", "Phường Hòa Minh"],
+        "Quận Ngũ Hành Sơn": ["Phường Hòa Hải", "Phường Hòa Quý", "Phường Khuê Mỹ", "Phường Mỹ An"],
+        "Quận Sơn Trà": [
+            "Phường An Hải Bắc",
+            "Phường An Hải Đông",
+            "Phường An Hải Tây",
+            "Phường Mân Thái",
+            "Phường Nại Hiên Đông",
+            "Phường Phước Mỹ",
+            "Phường Thọ Quang",
+        ],
+        "Quận Thanh Khê": [
+            "Phường An Khê",
+            "Phường Chính Gián",
+            "Phường Hòa Khê",
+            "Phường Tam Thuận",
+            "Phường Tân Chính",
+            "Phường Thạc Gián",
+            "Phường Thanh Khê Đông",
+            "Phường Thanh Khê Tây",
+            "Phường Vĩnh Trung",
+            "Phường Xuân Hà",
+        ],
+        "Huyện Hòa Vang": [
+            "Xã Hòa Bắc",
+            "Xã Hòa Châu",
+            "Xã Hòa Khương",
+            "Xã Hòa Liên",
+            "Xã Hòa Nhơn",
+            "Xã Hòa Ninh",
+            "Xã Hòa Phong",
+            "Xã Hòa Phú",
+            "Xã Hòa Phước",
+            "Xã Hòa Sơn",
+            "Xã Hòa Tiến",
+        ],
+    };
 
-    const haichau = [
-        "Hải Châu 1",
-        "Hải Châu 2",
-        "Thạch Thang",
-        "Thanh Bình",
-        "Thuận Phước",
-        "Hòa Thuận Tây",
-        "Hoà Thuận Đông",
-        "Nam Dương",
-        "Phước Ninh",
-        "Bình Thuận",
-        "Bình Hiên",
-        "Hòa Cường Nam",
-        "Hòa Cường Bắc",
-    ];
+    const [district, setDistrict] = useState();
+    const [ward, setWard] = useState();
 
-    const [input, setInput] = useState({
-        fullname: "",
-        contact: "",
-        address: "",
-    });
+    // *** This is for test data
+    // useEffect(() => {
+    //     console.log(district);
+    // }, [district]);
 
-    const [province, setProvince] = useState("");
-    const [districtt, setDistrictt] = useState("");
-    const [ward, setWard] = useState("");
+    // useEffect(() => {
+    //     console.log(ward);
+    // }, [ward]);
 
-    const fullNameRef = useRef();
-    const contactRef = useRef();
-    const addressRef = useRef();
-    const wardRef = useRef();
-    const provinceRef = useRef();
-    const districtRef = useRef();
+    // Danh sách Quận
 
-    function handleSubmit() {}
+    function districtList() {
+        let items = [];
 
-    const [listWard, setListWard] = useState([]);
-    const listDistrict = district.map((dis) => <option value={dis}>{dis}</option>);
-
-    //province handle
-    function handleProvinceChange(e) {
-        setProvince(e.target.value);
-        console.log(provinceRef.current.value);
-    }
-
-    //district handle
-    function handleDistrictChange(e) {
-        setDistrictt(e.target.value);
-        if (e.target.value === "Hải Châu") {
-            setListWard(haichau.map((hai) => <option value={hai}>{hai}</option>));
-        } else {
-            setListWard(null);
+        for (var district in dataList) {
+            items.push(<option value={district}>{district}</option>);
         }
-        console.log(districtRef.current.value);
+        return items;
     }
 
-    //ward handle
+    // Danh sách Phường
+    function wardList() {
+        let items = [];
+        // Nếu đã chọn Quận => trả về DS Phường
+        if (dataList[district]) {
+            for (var i = 0; i < dataList[district].length; i++) {
+                var ward = dataList[district][i];
+                items.push(<option value={ward}>{ward}</option>);
+            }
+        }
+        return items;
+    }
+
+    // Chọn Quận
+    function handleDistrictChange(e) {
+        if (e.target.value) {
+            setDistrict(e.target.value);
+        } else {
+            setDistrict(null);
+        }
+    }
+
+    // Chọn Phường
     function handleWardChange(e) {
-        setWard(e.target.value);
-        console.log(wardRef.current.value);
+        if (e.target.value) {
+            setWard(e.target.value);
+        } else {
+            setWard(null);
+        }
     }
 
-    //address handle
+    // Địa chỉ
     function handleAddressChange(e) {
         console.log(addressRef.current.value);
     }
+
+    const fullNameRef = useRef();
+    const phoneRef = useRef();
+    const addressRef = useRef();
+    const wardRef = useRef();
+    const districtRef = useRef();
+
+    const [input, setInput] = useState({
+        fullname: "",
+        phone: "",
+        address: "",
+    });
+
+    function handleSubmit() {}
 
     //form handle
     async function handleSubmit(e) {
@@ -101,9 +162,8 @@ function MainProfile(props) {
                 .doc(user.uid)
                 .set({
                     fullname: fullNameRef.current.value,
-                    contact: contactRef.current.value,
-                    address:
-                        addressRef.current.value + ", " + wardRef.current.value + ", " + districtRef.current.value + ", " + provinceRef.current.value,
+                    phone: phoneRef.current.value,
+                    address: addressRef.current.value + ", " + wardRef.current.value + ", " + districtRef.current.value + ", Thành phố Đà Nẵng",
                 });
             history.push("/home");
         } catch {
@@ -144,17 +204,17 @@ function MainProfile(props) {
                         {/* wrap breadcrumb */}
                         <div className="d-flex align-items-center flex-wrap mr-1">
                             <div className="d-flex align-items-baseline flex-wrap mr-5">
-                                <h5 className="text-dark font-weight-bold my-1 mr-5">Account Settings</h5>
+                                <h5 className="text-dark font-weight-bold my-1 mr-5">Cài đặt tài khoản</h5>
                                 {/* breadcrumb */}
                                 <ul className="breadcrumb font-weight-bold p-0 my-2 font-size-sm">
                                     <li className="breadcrumb-item">
                                         <a href="homepage.html" className="text-muted">
-                                            Home
+                                            Trang chủ
                                         </a>
                                     </li>
                                     <li className="breadcrumb-item active">
                                         <a href="profile.html" className="text-muted">
-                                            Profile Overview
+                                            Xem hồ sơ
                                         </a>
                                     </li>
                                 </ul>
@@ -171,15 +231,20 @@ function MainProfile(props) {
                     <div className="card card-custom">
                         <header className="card-header py-3">
                             <div className="card-title align-items-start flex-column">
-                                <h3 className="card-label">Personal Infomation</h3>
-                                <span className="text-muted font-size-sm mt-1">Update your personal information</span>
+                                <h3 className="card-label">Thông tin cá nhân</h3>
+                                <span className="text-muted font-size-sm mt-1">Cập nhập thông tin cá nhân của bạn</span>
+                            </div>
+                            <div className="card-toolbar">
+                                <button type="submit" className="btn btn-chartjs mr-2">
+                                    Chỉnh sửa
+                                </button>
                             </div>
                         </header>
                         <form className="form">
                             <div className="card-body">
                                 {/* avatar */}
                                 <div className="form-group row">
-                                    <label className="col-xl-3 col-lg-4 col-form-label">Avatar</label>
+                                    <label className="col-xl-3 col-lg-4 col-form-label">Ảnh đại diện</label>
                                     <div className="col-xl-9 col-lg-8">
                                         <div
                                             className="image-input image-input-outline"
@@ -202,8 +267,7 @@ function MainProfile(props) {
                                             className="form-control form-control-lg form-control-solid"
                                             type="email"
                                             id="email"
-                                            placeholder="Email"
-                                            defaultValue="hello"
+                                            placeholder="(trống)"
                                             value={user.email}
                                             readOnly
                                         />
@@ -213,13 +277,14 @@ function MainProfile(props) {
                                 {/* full name */}
                                 <div className="form-group row">
                                     <label htmlFor="fullname" className="col-xl-3 col-lg-4 col-form-label">
-                                        Full name
+                                        Họ và tên
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <input
                                             className="form-control form-control-lg form-control-solid"
                                             type="text"
                                             id="fullname"
+                                            placeholder="(trống)"
                                             value={input.fullname}
                                             readOnly
                                         />
@@ -229,15 +294,15 @@ function MainProfile(props) {
                                 {/* phone number */}
                                 <div className="form-group row">
                                     <label htmlFor="phone" className="col-xl-3 col-lg-4 col-form-label">
-                                        Contact
+                                        Số điện thoại
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <input
                                             className="form-control form-control-lg form-control-solid"
                                             type="text"
                                             id="phone"
-                                            placeholder="Phone number"
-                                            value={input.contact}
+                                            placeholder="(trống)"
+                                            value={input.phone}
                                             readOnly
                                         />
                                         {/* <span class="form-text text-muted">Some help content goes here</span> */}
@@ -246,14 +311,15 @@ function MainProfile(props) {
                                 {/* address */}
                                 <div className="form-group row">
                                     <label htmlFor="address" className="col-xl-3 col-lg-4 col-form-label">
-                                        Address
+                                        Địa chỉ
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <input
                                             className="form-control form-control-lg form-control-solid"
                                             type="text"
                                             id="address"
-                                            defaultValue={input.address}
+                                            placeholder="(trống)"
+                                            value={input.address}
                                             readOnly
                                         />
                                     </div>
@@ -265,22 +331,22 @@ function MainProfile(props) {
                         <form className="form" onSubmit={handleSubmit}>
                             <header className="card-header py-3">
                                 <div className="card-title align-items-start flex-column">
-                                    <h3 className="card-label">Personal Infomation</h3>
-                                    <span className="text-muted font-size-sm mt-1">Update your personal information</span>
+                                    <h3 className="card-label">Thông tin cá nhân</h3>
+                                    <span className="text-muted font-size-sm mt-1">Cập nhật thông tin cá nhân của bạn</span>
                                 </div>
                                 <div className="card-toolbar">
                                     <button type="submit" className="btn btn-chartjs mr-2">
-                                        Save Changes
+                                        Lưu thay đổi
                                     </button>
                                     <button type="reset" className="btn btn-light mr-2">
-                                        Cancel
+                                        Hủy bỏ
                                     </button>
                                 </div>
                             </header>
                             <div className="card-body">
                                 {/* avatar */}
                                 <div className="form-group row">
-                                    <label className="col-xl-3 col-lg-4 col-form-label">Avatar</label>
+                                    <label className="col-xl-3 col-lg-4 col-form-label">Ảnh đại diện</label>
                                     <div className="col-xl-9 col-lg-8">
                                         <div
                                             className="image-input image-input-outline"
@@ -318,7 +384,7 @@ function MainProfile(props) {
                                                 <i className="fas fa-times text-muted" />
                                             </span>
                                         </div>
-                                        <span className="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
+                                        <span className="form-text text-muted">Định dạng cho phép: png, jpg, jpeg.</span>
                                     </div>
                                 </div>
                                 {/* email */}
@@ -331,7 +397,7 @@ function MainProfile(props) {
                                             className="form-control form-control-lg"
                                             type="email"
                                             id="email"
-                                            placeholder="Email"
+                                            placeholder="Địa chỉ email"
                                             defaultValue={user.email}
                                             readOnly
                                         />
@@ -341,14 +407,14 @@ function MainProfile(props) {
                                 {/* full name */}
                                 <div className="form-group row">
                                     <label htmlFor="fullname" className="col-xl-3 col-lg-4 col-form-label">
-                                        Full name
+                                        Họ và tên
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <input
                                             className="form-control form-control-lg"
                                             type="text"
                                             id="fullname"
-                                            placeholder="Full Name"
+                                            placeholder="Vui lòng nhập họ và tên của bạn"
                                             defaultValue={input.fullname}
                                             ref={fullNameRef}
                                         />
@@ -358,16 +424,16 @@ function MainProfile(props) {
                                 {/* phone number */}
                                 <div className="form-group row">
                                     <label htmlFor="phone" className="col-xl-3 col-lg-4 col-form-label">
-                                        Contact
+                                        Số điện thoại
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <input
                                             className="form-control form-control-lg"
                                             type="text"
                                             id="phone"
-                                            placeholder="Phone number"
-                                            defaultValue={input.contact}
-                                            ref={contactRef}
+                                            placeholder="Số điện thoại của bạn"
+                                            defaultValue={input.phone}
+                                            ref={phoneRef}
                                         />
                                         {/* <span class="form-text text-muted">Some help content goes here</span> */}
                                     </div>
@@ -375,73 +441,67 @@ function MainProfile(props) {
                                 <div className="row">
                                     <label className="col-xl-3 col-lg-4" />
                                     <div className="col-xl-9 col-lg-8">
-                                        <h5 className="font-weight-normal mt-10 mb-6">Address</h5>
+                                        <h5 className="font-weight-normal mt-10 mb-6">Địa chỉ</h5>
                                     </div>
                                 </div>
-                                {/* province/city */}
+                                {/* Tỉnh/Thành phố */}
                                 <div className="form-group row">
                                     <label htmlFor="city" className="col-xl-3 col-lg-4 col-form-label">
-                                        Province/City
+                                        Tỉnh/Thành phố
+                                    </label>
+                                    <div className="col-xl-9 col-lg-8">
+                                        <input
+                                            className="form-control form-control-lg form-control-solid"
+                                            type="text"
+                                            id="city"
+                                            defaultValue="Thành phố Đà Nẵng"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Quận/Huyện */}
+                                <div className="form-group row">
+                                    <label htmlFor="district" className="col-xl-3 col-lg-4 col-form-label">
+                                        Quận/Huyện
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <select
                                             className="form-control form-control-lg"
-                                            name="provinces"
-                                            value={province}
-                                            ref={provinceRef}
-                                            onChange={handleProvinceChange}
-                                        >
-                                            <option value="">Select Province/City</option>
-                                            <option value="Đà Nẵng" selected>
-                                                Đà Nẵng
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                {/* district */}
-                                <div className="form-group row">
-                                    <label htmlFor="city" className="col-xl-3 col-lg-4 col-form-label">
-                                        District
-                                    </label>
-                                    <div className="col-xl-9 col-lg-8">
-                                        <select
-                                            className="form-control form-control-lg"
-                                            name="calc_shipping_district"
-                                            value={districtt}
                                             ref={districtRef}
-                                            id="districtSel"
+                                            id="district"
                                             onChange={handleDistrictChange}
                                         >
-                                            <option value="">Select District</option>
-                                            {listDistrict}
+                                            <option value="">Chọn Quận/Huyện</option>
+                                            {districtList()}
                                         </select>
-                                        <input className="billing_address_2" name type="hidden" defaultValue />
                                     </div>
                                 </div>
-                                {/* ward/commune */}
+
+                                {/* Phường/Xã */}
                                 <div className="form-group row">
-                                    <label htmlFor="city" className="col-xl-3 col-lg-4 col-form-label">
-                                        Ward/Commune
+                                    <label htmlFor="ward" className="col-xl-3 col-lg-4 col-form-label">
+                                        Phường/Xã
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" ref={wardRef} onChange={handleWardChange} id="wardSel">
-                                            <option value="">Select Ward/Commune</option>
-                                            {listWard}
+                                        <select className="form-control form-control-lg" ref={wardRef} onChange={handleWardChange} id="ward">
+                                            <option value="">Chọn Phường/Xã</option>
+                                            {wardList()}
                                         </select>
-                                        <input className="billing_address_3" name type="hidden" defaultValue />
                                     </div>
                                 </div>
-                                {/* address */}
+
+                                {/* Địa chỉ */}
                                 <div className="form-group row">
-                                    <label htmlFor="city" className="col-xl-3 col-lg-4 col-form-label">
-                                        Address
+                                    <label htmlFor="address" className="col-xl-3 col-lg-4 col-form-label">
+                                        Địa chỉ
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <input
                                             className="form-control form-control-lg"
                                             type="text"
-                                            id="fullname"
-                                            defaultValue=""
+                                            id="address"
+                                            placeholder="Số nhà, tên đường"
                                             ref={addressRef}
                                             onChange={handleAddressChange}
                                         />
