@@ -79,7 +79,7 @@ body {
 
 .menu-item {
     position: relative;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0.75rem;
     margin-right: 0.75rem;
 }
 
@@ -93,14 +93,22 @@ body {
     text-decoration: none;
 }
 
-.menu-item.special {
+.menu-item > .menu-link > .menu:hover {
     background: linear-gradient(90deg, #a18cd1 0%, #fbc2eb 100%);
     border-radius: 3rem;
     padding: 0.75rem 1rem;
+    color: #fff!important;
+}
+
+.menu-item > .menu-link > .menu:active {
+    background: linear-gradient(90deg, #a18cd1 0%, #fbc2eb 100%);
+    border-radius: 3rem;
+    padding: 0.75rem 1rem;
+    color: #fff!important;
 }
 
 .menu-recent {
-    color: #fff;
+    color: #98a6ad !important;
 }
 
 .menu-in-progress {

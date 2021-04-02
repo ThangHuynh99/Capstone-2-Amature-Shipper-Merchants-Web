@@ -32,7 +32,7 @@ function InforHomePage(props) {
                             </div>
                             <h4 className="font-weight-bold my-2">{name}</h4>
                             <div className="text-muted mb-2">Shop Owner</div>
-                            <span className="label label-light-warning label-inline font-weight-bold label-lg">Active</span>
+                            <span className="label label-light-warning label-inline font-weight-bold label-lg">Hoạt động</span>
                             <div className="mt-10">
                                 <Link to="/profile">
                                     {" "}

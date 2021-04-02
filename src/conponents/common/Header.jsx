@@ -13,29 +13,29 @@ function Header(props) {
                     <div className="d-flex align-items-center justify-content-between flex-wrap container-fluid ">
                         <div className="d-none d-xl-block">
                             <ul className="menu-nav">
-                                <li className="menu-item special">
+                                <li className="menu-item">
                                     <a href="#" className="menu-link">
-                                        <span className="menu-recent">Đơn gần đây</span>
+                                        <span className="menu menu-recent">Đơn gần đây</span>
                                     </a>
                                 </li>
                                 <li className="menu-item">
                                     <a href="#" className="menu-link">
-                                        <span className="menu-in-progress">Đang xử lý</span>
+                                        <span className="menu menu-in-progress">Đang xử lý</span>
                                     </a>
                                 </li>
                                 <li className="menu-item">
                                     <a href="#" className="menu-link">
-                                        <span className="menu-picked">Đã nhận đơn</span>
+                                        <span className="menu menu-picked">Đã nhận đơn</span>
                                     </a>
                                 </li>
                                 <li className="menu-item">
                                     <a href="#" className="menu-link">
-                                        <span className="menu-completed">Hoàn thành</span>
+                                        <span className="menu menu-completed">Hoàn thành</span>
                                     </a>
                                 </li>
                                 <li className="menu-item">
                                     <a href="#" className="menu-link">
-                                        <span className="menu-canceled">Đơn hủy</span>
+                                        <span className="menu menu-canceled">Đơn hủy</span>
                                     </a>
                                 </li>
                             </ul>
