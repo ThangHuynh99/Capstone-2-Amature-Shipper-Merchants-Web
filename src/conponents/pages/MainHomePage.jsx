@@ -7,6 +7,8 @@ import InProcessing from "../labels/InProcessing";
 MainHomePage.propTypes = {};
 
 function MainHomePage(props) {
+
+    
     return (
         <main className="d-flex flex-column flex-row-fluid wrapper">
             <Header />

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import Signout from "../LogOut";
-import Blank from "../../assets/media/blank.png";
+import Avatar from "../../assets/media/avatar.png";
 import AbstractThree from "../../assets/media/abstract-3.svg";
 import AbstractTwo from "../../assets/media/abstract-2.svg";
 import { Link } from "react-router-dom";
@@ -59,7 +59,7 @@ function InforHomePage(props) {
                                 <div
                                     className="symbol-label"
                                     style={{
-                                        backgroundImage: `url(${Blank})`,
+                                        backgroundImage: `url(${Avatar})`,
                                     }}
                                 />
                                 <i className="symbol-badge symbol-badge-bottom bg-success" />

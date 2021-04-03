@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import { propTypes } from "react-bootstrap/esm/Image";
+import Avatar from "../../assets/media/avatar.png";
+import { useHistory } from "react-router";
+import {db} from "../../firebase";
 
 EditProfile.propTypes = {
     user: PropTypes.object,
-    change: PropTypes.fuc
+    change: PropTypes.func
 };
 
 EditProfile.defaultProps = {
@@ -15,7 +18,8 @@ EditProfile.defaultProps = {
 }
 
 function EditProfile(props) {
-    const { user } = props;
+    const { user, change } = props;
+    const history = useHistory();
 
     const fullNameRef = useRef();
     const phoneRef = useRef();
@@ -80,6 +84,8 @@ function EditProfile(props) {
         ],
     };
 
+  
+
       // Danh sách Quận
       function districtList() {
         let items = [];
@@ -115,7 +121,6 @@ function EditProfile(props) {
     //form handle
     async function handleSubmit(e) {
         e.preventDefault();
-
         try {
             // db.settings({
             //   timestampsInSnapshots: true,
@@ -130,7 +135,8 @@ function EditProfile(props) {
                     phone: phoneRef.current.value,
                     address: addressRef.current.value + ", " + wardRef.current.value + ", " + districtRef.current.value + ", Thành phố Đà Nẵng",
                 });
-            history.push("/home");
+            change()
+            history.push("/profile")
         } catch {
             console.log("error");
         }
@@ -214,7 +220,7 @@ function EditProfile(props) {
                                             className="image-input image-input-outline"
                                             id="profile_avatar"
                                             style={{
-                                                backgroundImage: `url(${Blank})`,
+                                                backgroundImage: `url(${Avatar})`,
                                             }}
                                         >
                                             <div className="image-input-wrapper" />
@@ -292,7 +298,7 @@ function EditProfile(props) {
                                             type="text"
                                             id="fullname"
                                             placeholder="Vui lòng nhập họ và tên của bạn"
-                                            defaultValue={input.fullname}
+                                            defaultValue = ""
                                             ref={fullNameRef}
                                         />
                                     </div>
@@ -312,7 +318,7 @@ function EditProfile(props) {
                                             type="text"
                                             id="phone"
                                             placeholder="Số điện thoại của bạn"
-                                            defaultValue={input.phone}
+                                            defaultValue = ""
                                             ref={phoneRef}
                                         />
                                         {/* <span class="form-text text-muted">Some help content goes here</span> */}
@@ -380,7 +386,6 @@ function EditProfile(props) {
                                         <select
                                             className="form-control form-control-lg"
                                             ref={wardRef}
-                                            onChange={handleWardChange}
                                             id="ward"
                                         >
                                             <option value="">
@@ -406,7 +411,6 @@ function EditProfile(props) {
                                             id="address"
                                             placeholder="Số nhà, tên đường"
                                             ref={addressRef}
-                                            onChange={handleAddressChange}
                                         />
                                     </div>
                                 </div>
