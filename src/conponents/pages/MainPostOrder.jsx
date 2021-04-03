@@ -6,6 +6,8 @@ import Header from "../common/Header";
 import Footer from "../common/Footer";
 import random from "randomstring";
 
+import $ from "jquery";
+
 MainPostOrder.propTypes = {
     user: PropTypes.object,
 };
@@ -38,39 +40,92 @@ function MainPostOrder(props) {
     const shipWardRef = useRef();
     const shipAddressRef = useRef();
 
-    const [province, setProvince] = useState("");
-    const [districtt, setDistrictt] = useState("");
-    const [ward, setWard] = useState("");
+    const [district, setDistrict] = useState();
 
-    const district = ["Hải Châu", "Cẩm Lệ", "Thanh Khê", "Liên Chiểu", "Ngũ Hành Sơn", "Sơn Trà"];
+    const dataList = {
+        "Quận Cẩm Lệ": ["Phường Hòa An", "Phường Hòa Phát", "Phường Hòa Thọ Đông", "Phường Hòa Thọ Tây", "Phường Hòa Xuân", "Phường Khuê Trung"],
+        "Quận Hải Châu": [
+            "Phường Bình Hiên",
+            "Phường Bình Thuận",
+            "Phường Hải Châu 1",
+            "Phường Hải Châu 2",
+            "Phường Hòa Cương Bắc",
+            "Phường Hòa Cường Nam",
+            "Phường Hòa Thuận Đông",
+            "Phường Hòa Thuận Tây",
+            "Phường Nam Dương",
+            "Phường Phước Ninh",
+            "Phường Thạch Thang",
+            "Phường Thạnh Bình",
+            "Phường Thuận Phước",
+        ],
+        "Quận Liên Chiểu": ["Phường Hòa Hiệp Bắc", "Phường Hòa Hiệp Nam", "Phường Hòa Khánh Bắc", "Phường Hòa Khánh Nam", "Phường Hòa Minh"],
+        "Quận Ngũ Hành Sơn": ["Phường Hòa Hải", "Phường Hòa Quý", "Phường Khuê Mỹ", "Phường Mỹ An"],
+        "Quận Sơn Trà": [
+            "Phường An Hải Bắc",
+            "Phường An Hải Đông",
+            "Phường An Hải Tây",
+            "Phường Mân Thái",
+            "Phường Nại Hiên Đông",
+            "Phường Phước Mỹ",
+            "Phường Thọ Quang",
+        ],
+        "Quận Thanh Khê": [
+            "Phường An Khê",
+            "Phường Chính Gián",
+            "Phường Hòa Khê",
+            "Phường Tam Thuận",
+            "Phường Tân Chính",
+            "Phường Thạc Gián",
+            "Phường Thanh Khê Đông",
+            "Phường Thanh Khê Tây",
+            "Phường Vĩnh Trung",
+            "Phường Xuân Hà",
+        ],
+        "Huyện Hòa Vang": [
+            "Xã Hòa Bắc",
+            "Xã Hòa Châu",
+            "Xã Hòa Khương",
+            "Xã Hòa Liên",
+            "Xã Hòa Nhơn",
+            "Xã Hòa Ninh",
+            "Xã Hòa Phong",
+            "Xã Hòa Phú",
+            "Xã Hòa Phước",
+            "Xã Hòa Sơn",
+            "Xã Hòa Tiến",
+        ],
+    };
 
-    const haichau = [
-        "Hải Châu 1",
-        "Hải Châu 2",
-        "Thạch Thang",
-        "Thanh Bình",
-        "Thuận Phước",
-        "Hòa Thuận Tây",
-        "Hoà Thuận Đông",
-        "Nam Dương",
-        "Phước Ninh",
-        "Bình Thuận",
-        "Bình Hiên",
-        "Hòa Cường Nam",
-        "Hòa Cường Bắc",
-    ];
+    // Danh sách Quận
+    function districtList() {
+        let items = [];
 
-    const [listWard, setListWard] = useState([]);
+        for (var district in dataList) {
+            items.push(<option value={district}>{district}</option>);
+        }
+        return items;
+    }
 
-    const listDistrict = district.map((dis) => <option value={dis}>{dis}</option>);
+    // Danh sách Phường
+    function wardList() {
+        let items = [];
+        // Nếu đã chọn Quận => trả về DS Phường
+        if (dataList[district]) {
+            for (var i = 0; i < dataList[district].length; i++) {
+                var ward = dataList[district][i];
+                items.push(<option value={ward}>{ward}</option>);
+            }
+        }
+        return items;
+    }
 
-    //district handle
+    // Chọn Quận, check thay đổi
     function handleDistrictChange(e) {
-        setDistrictt(e.target.value);
-        if (e.target.value === "Hải Châu") {
-            setListWard(haichau.map((hai) => <option value={hai}>{hai}</option>));
+        if (e.target.value) {
+            setDistrict(e.target.value);
         } else {
-            setListWard(null);
+            setDistrict(null);
         }
     }
 
@@ -205,44 +260,62 @@ function MainPostOrder(props) {
                                         {/* <span class="form-text text-muted">Some help content goes here</span> */}
                                     </div>
                                 </div>
+
                                 <div className="row">
                                     <label className="col-xl-3 col-lg-4" />
                                     <div className="col-xl-9 col-lg-8">
-                                        <h5 className="font-weight-normal mt-0 mb-6">Nhận hàng tại</h5>
+                                        <h5 className="font-weight-normal mt-0 mb-6">Địa chỉ lấy hàng mặc định</h5>
                                     </div>
                                 </div>
-                                {/* province/city */}
+
+                                <div className="form-group row">
+                                    <label className="col-xl-3 col-lg-4 col-form-label"></label>
+                                    <div className="col-xl-9 col-lg-8">
+                                        <span className="switch">
+                                            <label>
+                                                <input type="checkbox" defaultChecked="checked" name="select" />
+                                                <span />
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <label className="col-xl-3 col-lg-4" />
+                                    <div className="col-xl-9 col-lg-8">
+                                        <h5 className="font-weight-normal mt-10 mb-6">Địa chỉ giao hàng tới</h5>
+                                    </div>
+                                </div>
+                                {/* Tỉnh/Thành phố */}
                                 <div className="form-group row">
                                     <label htmlFor="city" className="col-xl-3 col-lg-4 col-form-label">
                                         Tỉnh/Thành phố
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" id="city" name="calc_shipping_provinces">
-                                            <option value="">Chọn Tỉnh/Thành phố</option>
-                                            <option value="Đà Nẵng">Đà Nẵng</option>
-                                        </select>
-                                        <input className="billing_address_1" name type="hidden" defaultValue />
+                                        <input
+                                            className="form-control form-control-lg form-control-solid"
+                                            type="text"
+                                            id="city"
+                                            defaultValue="Thành phố Đà Nẵng"
+                                            readOnly
+                                        />
                                     </div>
                                 </div>
-                                {/* district */}
+
+                                {/* Quận/Huyện */}
                                 <div className="form-group row">
                                     <label htmlFor="district" className="col-xl-3 col-lg-4 col-form-label">
                                         Quận/Huyện
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select
-                                            className="form-control form-control-lg"
-                                            id="district"
-                                            name="calc_shipping_district"
-                                            onChange={handleDistrictChange}
-                                        >
+                                        <select className="form-control form-control-lg" id="district" onChange={handleDistrictChange}>
                                             <option value="">Chọn Quận/Huyện</option>
-                                            {listDistrict}
+                                            {districtList()}
                                         </select>
-                                        <input className="billing_address_2" name type="hidden" defaultValue />
                                     </div>
                                 </div>
-                                {/* ward/commune */}
+
+                                {/* Phường/Xã */}
                                 <div className="form-group row">
                                     <label htmlFor="ward" className="col-xl-3 col-lg-4 col-form-label">
                                         Phường/Xã
@@ -250,73 +323,12 @@ function MainPostOrder(props) {
                                     <div className="col-xl-9 col-lg-8">
                                         <select className="form-control form-control-lg" id="ward">
                                             <option value="">Chọn Phường/Xã</option>
-                                            {listWard}
+                                            {wardList()}
                                         </select>
                                     </div>
                                 </div>
-                                {/* address */}
-                                <div className="form-group row">
-                                    <label htmlFor="address" className="col-xl-3 col-lg-4 col-form-label">
-                                        Địa chỉ
-                                    </label>
-                                    <div className="col-xl-9 col-lg-8">
-                                        <input className="form-control form-control-lg" type="text" id="address" placeholder="Số nhà, tên đường" />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <label className="col-xl-3 col-lg-4" />
-                                    <div className="col-xl-9 col-lg-8">
-                                        <h5 className="font-weight-normal mt-0 mb-6">Giao hàng tới</h5>
-                                    </div>
-                                </div>
-                                {/* province/city */}
-                                <div className="form-group row">
-                                    <label htmlFor="city" className="col-xl-3 col-lg-4 col-form-label">
-                                        Tỉnh/Thành phố
-                                    </label>
-                                    <div className="col-xl-9 col-lg-8">
-                                        <select
-                                            className="form-control form-control-lg"
-                                            id="city"
-                                            name="calc_shipping_provinces"
-                                            ref={shipProvinceRef}
-                                        >
-                                            <option value="">Chọn Tỉnh/Thành phố</option>
-                                            <option value="Đà Nẵng">Đà Nẵng</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                {/* district */}
-                                <div className="form-group row">
-                                    <label htmlFor="district" className="col-xl-3 col-lg-4 col-form-label">
-                                        Quận/Huyện
-                                    </label>
-                                    <div className="col-xl-9 col-lg-8">
-                                        <select
-                                            className="form-control form-control-lg"
-                                            id="district"
-                                            name="calc_shipping_district"
-                                            onChange={handleDistrictChange}
-                                            ref={shipDistrcitRef}
-                                        >
-                                            <option value="">Chọn Quận/Huyện</option>
-                                            {listDistrict}
-                                        </select>
-                                    </div>
-                                </div>
-                                {/* ward/commune */}
-                                <div className="form-group row">
-                                    <label htmlFor="ward" className="col-xl-3 col-lg-4 col-form-label">
-                                        Phường/Xã
-                                    </label>
-                                    <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" id="ward" ref={shipWardRef}>
-                                            <option value="">Chọn Phường/Xã</option>
-                                            {listWard}
-                                        </select>
-                                    </div>
-                                </div>
-                                {/* address */}
+
+                                {/* Địa chỉ */}
                                 <div className="form-group row">
                                     <label htmlFor="address" className="col-xl-3 col-lg-4 col-form-label">
                                         Địa chỉ
@@ -325,10 +337,9 @@ function MainPostOrder(props) {
                                         <input
                                             className="form-control form-control-lg"
                                             type="text"
-                                            id="address"
                                             maxLength={50}
+                                            id="address"
                                             placeholder="Số nhà, tên đường"
-                                            ref={shipAddressRef}
                                         />
                                     </div>
                                 </div>
