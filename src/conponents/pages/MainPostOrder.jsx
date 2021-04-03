@@ -78,6 +78,7 @@ function MainPostOrder(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
+            //tao bảng newsfeed
             await realtime.ref("newsfeed/" + idPost).set({
                 id_post: idPost,
                 noi_giao:
@@ -99,6 +100,40 @@ function MainPostOrder(props) {
                 phi_giao: shipFeeRef.current.value,
                 phi_ung: depositFeeRef.current.value,
                 id_shop: user.userID,
+            });
+
+            //tạo bảng orderstatus
+            await realtime.ref("OrderStatus/").set({
+                id_post: idPost,
+                id_shop: user.userID,
+                status: 0,
+                noi_giao:
+                    shipAddressRef.current.value +
+                    "," +
+                    shipWardRef.current.value +
+                    "," +
+                    shipDistrcitRef.current.value +
+                    "," +
+                    shipProvinceRef.current.value,
+                noi_nhan: user.address,
+                ghi_chu: noteRef.current.value,
+                km: "3km",
+                thoi_gian: ngayTao,
+                sdt_nguoi_nhan: numberRef.current.value,
+                ten_nguoi_nhan: customerRef.current.value,
+                sdt_nguoi_gui: user.contact,
+                ten_nguoi_gui: user.fullname,
+                phi_giao: shipFeeRef.current.value,
+                phi_ung: depositFeeRef.current.value,
+                id_shop: user.userID,
+            });
+            
+            //tạo bảng transaction
+            await realtime.ref("Transaction/").set({
+                id_post: idPost,
+                id_shipper: '',
+                status: '',
+                id_roomchat: ''
             });
             history.push("/home");
         } catch (error) {
