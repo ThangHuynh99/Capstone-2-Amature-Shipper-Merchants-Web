@@ -32,34 +32,6 @@ function MainProfile(props) {
     //     console.log(ward);
     // }, [ward]);
 
-    const [input, setInput] = useState({
-        fullname: "",
-        phone: "",
-        address: "",
-    });
-
-    //get data
-    useEffect(() => {
-        async function fetchUserInfor() {
-            try {
-                await db
-                    .collection("ShopProfile")
-                    .doc(user.uid)
-                    .get()
-                    .then((doc) => {
-                        if (doc.exists) {
-                            setInput(doc.data());
-                            console.log(input);
-                        } else {
-                            console.log("No such document!");
-                        }
-                    });
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchUserInfor();
-    });
 
     function handleChangeEdit() {
         if (onChange) {
@@ -160,7 +132,7 @@ function MainProfile(props) {
                                             type="text"
                                             id="fullname"
                                             placeholder="(trống)"
-                                            value={input.fullname}
+                                            value={user.input.fullname}
                                             readOnly
                                         />
                                     </div>
@@ -177,7 +149,7 @@ function MainProfile(props) {
                                             type="text"
                                             id="phone"
                                             placeholder="(trống)"
-                                            value={input.phone}
+                                            value={user.input.phone}
                                             readOnly
                                         />
                                         {/* <span class="form-text text-muted">Some help content goes here</span> */}
@@ -194,7 +166,7 @@ function MainProfile(props) {
                                             type="text"
                                             id="address"
                                             placeholder="(trống)"
-                                            value={input.address}
+                                            value={user.input.address}
                                             readOnly
                                         />
                                     </div>

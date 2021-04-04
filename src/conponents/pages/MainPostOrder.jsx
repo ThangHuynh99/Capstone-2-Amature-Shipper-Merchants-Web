@@ -7,25 +7,27 @@ import Footer from "../common/Footer";
 import random from "randomstring";
 
 import $ from "jquery";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 MainPostOrder.propTypes = {
     user: PropTypes.object,
+    id_user: PropTypes.string
 };
 
 MainPostOrder.defaultProps = {
     user: "",
+    id_user: ''
 };
 
 function MainPostOrder(props) {
-    const { user } = props;
+    const { user, id_user } = props;
     var today = new Date();
     var date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = time + " " + date;
 
-    const id = random.generate(10) + random.generate(10);
+    const id = random.generate(8) + random.generate(8);
 
-    const [idPost, setIdPost] = useState(id);
     const [ngayTao, setNgayTao] = useState(dateTime);
 
     const history = useHistory();
@@ -35,7 +37,6 @@ function MainPostOrder(props) {
     const shipFeeRef = useRef();
     const depositFeeRef = useRef();
     const noteRef = useRef();
-    const shipProvinceRef = useRef();
     const shipDistrcitRef = useRef();
     const shipWardRef = useRef();
     const shipAddressRef = useRef();
@@ -134,8 +135,8 @@ function MainPostOrder(props) {
         e.preventDefault();
         try {
             //tao bảng newsfeed
-            await realtime.ref("newsfeed/" + idPost).set({
-                id_post: idPost,
+            await realtime.ref("newsfeed/" + id).set({
+                id_post: id,
                 noi_giao:
                     shipAddressRef.current.value +
                     "," +
@@ -143,24 +144,24 @@ function MainPostOrder(props) {
                     "," +
                     shipDistrcitRef.current.value +
                     "," +
-                    shipProvinceRef.current.value,
+                    "Thành phố Đà Nẵng",
                 noi_nhan: user.address,
                 ghi_chu: noteRef.current.value,
                 km: "3km",
                 thoi_gian: ngayTao,
                 sdt_nguoi_nhan: numberRef.current.value,
                 ten_nguoi_nhan: customerRef.current.value,
-                sdt_nguoi_gui: user.contact,
+                sdt_nguoi_gui: user.phone,
                 ten_nguoi_gui: user.fullname,
                 phi_giao: shipFeeRef.current.value,
                 phi_ung: depositFeeRef.current.value,
-                id_shop: user.userID,
+                id_shop: id_user
             });
 
             //tạo bảng orderstatus
-            await realtime.ref("OrderStatus/").set({
-                id_post: idPost,
-                id_shop: user.userID,
+            await realtime.ref("OrderStatus/" + id).set({
+                id_post: id,
+                id_shop: id_user,
                 status: 0,
                 noi_giao:
                     shipAddressRef.current.value +
@@ -169,27 +170,27 @@ function MainPostOrder(props) {
                     "," +
                     shipDistrcitRef.current.value +
                     "," +
-                    shipProvinceRef.current.value,
+                    "Thành phố Đà Nẵng",
                 noi_nhan: user.address,
                 ghi_chu: noteRef.current.value,
                 km: "3km",
                 thoi_gian: ngayTao,
                 sdt_nguoi_nhan: numberRef.current.value,
                 ten_nguoi_nhan: customerRef.current.value,
-                sdt_nguoi_gui: user.contact,
+                sdt_nguoi_gui: user.phone,
                 ten_nguoi_gui: user.fullname,
                 phi_giao: shipFeeRef.current.value,
                 phi_ung: depositFeeRef.current.value,
-                id_shop: user.userID,
             });
             
             //tạo bảng transaction
-            await realtime.ref("Transaction/").set({
-                id_post: idPost,
+            await realtime.ref("newsfeed/Transaction/" + id).set({
+                id_post: id,
                 id_shipper: '',
                 status: '',
                 id_roomchat: ''
             });
+            
             history.push("/home");
         } catch (error) {
             console.log(error);
@@ -343,7 +344,7 @@ function MainPostOrder(props) {
                                         Quận/Huyện
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" id="district" onChange={handleDistrictChange}>
+                                        <select className="form-control form-control-lg" id="district" onChange={handleDistrictChange} ref={shipDistrcitRef}>
                                             <option value="">Chọn Quận/Huyện</option>
                                             {districtList()}
                                         </select>
@@ -356,7 +357,7 @@ function MainPostOrder(props) {
                                         Phường/Xã
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" id="ward">
+                                        <select className="form-control form-control-lg" id="ward" ref={shipWardRef}>
                                             <option value="">Chọn Phường/Xã</option>
                                             {wardList()}
                                         </select>
@@ -375,6 +376,7 @@ function MainPostOrder(props) {
                                             maxLength={50}
                                             id="address"
                                             placeholder="Số nhà, tên đường"
+                                            ref = {shipAddressRef}
                                         />
                                     </div>
                                 </div>

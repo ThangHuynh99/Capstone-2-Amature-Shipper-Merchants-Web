@@ -5,6 +5,7 @@ import AsideLeft from "../../conponents/pages/AsideLeft";
 import AsideRight from "../../conponents/pages/AsideRight";
 import MainProfile from "../../conponents/pages/MainProfile";
 import EditProfile from "../../conponents/pages/EditProfile.jsx";
+import { db } from "../../firebase";
 
 export default function Profile() {
     const { currentUser } = useAuth();
@@ -15,7 +16,12 @@ export default function Profile() {
         email: currentUser.email,
         uid: currentUser.uid,
         error: "",
-        alert: ""
+        alert: "",
+        input: {
+            fullname: "",
+            phone: "",
+            address: ""
+        }
     });
 
 
@@ -33,6 +39,32 @@ export default function Profile() {
             alert: "green"
         })
     }
+
+    useEffect(() => {
+        async function fetchUserInfor() {
+            try {
+            await   db
+                    .collection("ShopProfile")
+                    .doc(userInfor.uid)
+                    .get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            setUserInfor({
+                                ... userInfor ,
+                                input: doc.data()
+                            });
+                            console.log(setUserInfor.input);
+                        } else {
+                            console.log("No such document!");
+                        }
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchUserInfor();
+    }, [userInfor.input]);
+
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">

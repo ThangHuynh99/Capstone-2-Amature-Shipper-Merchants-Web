@@ -9,35 +9,34 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 
 InforHomePage.propTypes = {
-    
+    name: PropTypes.string
 };
 
 InforHomePage.defaultProps = {
-    
+    name: ""
 };
 
 function InforHomePage(props) {
 
     const { currentUser } = useAuth();
 
-    const [input, setInput] = useState({
+    const  [input, setInput] = useState({
         fullname: "",
-        contact: "",
-        address: "",
-    });
+        phone: "",
+        address: ""
+    })
 
-    //get data
     useEffect(() => {
         async function fetchUserInfor() {
             try {
-                await db
+            await   db
                     .collection("ShopProfile")
                     .doc(currentUser.uid)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
-                            setInput(doc.data());
-                            console.log(input);
+                            setInput(doc.data())
+                            console.log(input)
                         } else {
                             console.log("No such document!");
                         }
@@ -47,7 +46,7 @@ function InforHomePage(props) {
             }
         }
         fetchUserInfor();
-    });
+    }, []);
 
     return (
         <aside className="sidebar d-flex flex-row-auto flex-column">

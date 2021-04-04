@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import InProcessing from "../labels/InProcessing";
+import { realtime } from "../../firebase";
 
 MainHomePage.propTypes = {};
 
 function MainHomePage(props) {
 
+    const [data, setData] = useState([{
+        phi_giao: '',
+        ten_nguoi_gui: '',
+        sdt_nguoi_gui: '',
+        noi_giao: '',
+        thoi_gian: ''
+    }])
+
+    const [status, setStatus] = useState(0);
     
+    useEffect(() => {
+        async function fetchOrder() {
+            try {
+                realtime.ref("OrderStatus/").on('value', (snapshot) => {
+                setData(snapshot.val());
+                console.log(data);
+              });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchOrder();
+    }, []);
+
     return (
         <main className="d-flex flex-column flex-row-fluid wrapper">
             <Header />
@@ -17,24 +41,37 @@ function MainHomePage(props) {
                     <header className="card-header border-0">
                         <div className="card-title py-4">
                             <h3 className="card-label">
-                                <span className="d-block title">Danh sách đơn</span>
-                                <span className="d-block text-time mt-2 font-size-sm">trong 24 giờ</span>
+                                <span className="d-block title">
+                                    Danh sách đơn
+                                </span>
+                                <span className="d-block text-time mt-2 font-size-sm">
+                                    trong 24 giờ
+                                </span>
                             </h3>
                         </div>
                         <div className="card-toolbar">
                             <ul className="nav nav-pills">
                                 <li className="nav-item">
-                                    <a href="#tab1" className="nav-link py-2 px-4">
+                                    <a
+                                        href="#tab1"
+                                        className="nav-link py-2 px-4"
+                                    >
                                         <span className="nav-text">Tháng</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="#tab2" className="nav-link py-2 px-4">
+                                    <a
+                                        href="#tab2"
+                                        className="nav-link py-2 px-4"
+                                    >
                                         <span className="nav-text">Tuần</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="#tab3" className="nav-link py-2 px-4 active">
+                                    <a
+                                        href="#tab3"
+                                        className="nav-link py-2 px-4 active"
+                                    >
                                         <span className="nav-text">Ngày</span>
                                     </a>
                                 </li>
@@ -51,13 +88,20 @@ function MainHomePage(props) {
                                 </header>
                                 <section className="card-info content">
                                     <p>
-                                        <span className="payment">85,000đ - Tiền mặt</span>
+                                        <span className="payment">
+                                            85,000đ - Tiền mặt
+                                        </span>
                                         <br />
                                         Nguyễn Văn Quỳnh - 0344 063 164
                                     </p>
-                                    <span className="delivery">Giao hàng tới</span>
+                                    <span className="delivery">
+                                        Giao hàng tới
+                                    </span>
                                     <div className="d-flex align-items-center justify-content-between">
-                                        <address className="mb-0 pl-0 col-9">986, Ngô Quyền, Phường An Hải Bắc, Quận Sơn Trà, Thành phố Đà Nẵng</address>
+                                        <address className="mb-0 pl-0 col-9">
+                                            986, Ngô Quyền, Phường An Hải Bắc,
+                                            Quận Sơn Trà, Thành phố Đà Nẵng
+                                        </address>
                                         <InProcessing />
                                     </div>
                                 </section>

@@ -30,7 +30,14 @@ function EditProfile(props) {
     const [district, setDistrict] = useState();
 
     const dataList = {
-        "Quận Cẩm Lệ": ["Phường Hòa An", "Phường Hòa Phát", "Phường Hòa Thọ Đông", "Phường Hòa Thọ Tây", "Phường Hòa Xuân", "Phường Khuê Trung"],
+        "Quận Cẩm Lệ": [
+            "Phường Hòa An",
+            "Phường Hòa Phát",
+            "Phường Hòa Thọ Đông",
+            "Phường Hòa Thọ Tây",
+            "Phường Hòa Xuân",
+            "Phường Khuê Trung",
+        ],
         "Quận Hải Châu": [
             "Phường Bình Hiên",
             "Phường Bình Thuận",
@@ -46,8 +53,19 @@ function EditProfile(props) {
             "Phường Thạnh Bình",
             "Phường Thuận Phước",
         ],
-        "Quận Liên Chiểu": ["Phường Hòa Hiệp Bắc", "Phường Hòa Hiệp Nam", "Phường Hòa Khánh Bắc", "Phường Hòa Khánh Nam", "Phường Hòa Minh"],
-        "Quận Ngũ Hành Sơn": ["Phường Hòa Hải", "Phường Hòa Quý", "Phường Khuê Mỹ", "Phường Mỹ An"],
+        "Quận Liên Chiểu": [
+            "Phường Hòa Hiệp Bắc",
+            "Phường Hòa Hiệp Nam",
+            "Phường Hòa Khánh Bắc",
+            "Phường Hòa Khánh Nam",
+            "Phường Hòa Minh",
+        ],
+        "Quận Ngũ Hành Sơn": [
+            "Phường Hòa Hải",
+            "Phường Hòa Quý",
+            "Phường Khuê Mỹ",
+            "Phường Mỹ An",
+        ],
         "Quận Sơn Trà": [
             "Phường An Hải Bắc",
             "Phường An Hải Đông",
@@ -131,10 +149,15 @@ function EditProfile(props) {
                 .set({
                     fullname: fullNameRef.current.value,
                     phone: phoneRef.current.value,
-                    address: addressRef.current.value + ", " + wardRef.current.value + ", " + districtRef.current.value + ", Thành phố Đà Nẵng",
+                    address:
+                        addressRef.current.value +
+                        ", " +
+                        wardRef.current.value +
+                        ", " +
+                        districtRef.current.value +
+                        ", Thành phố Đà Nẵng",
                 });
             change();
-            history.push("/profile");
         } catch {
             console.log("error");
         }
@@ -150,16 +173,24 @@ function EditProfile(props) {
                         {/* wrap breadcrumb */}
                         <div className="d-flex align-items-center flex-wrap mr-1">
                             <div className="d-flex align-items-baseline flex-wrap mr-5">
-                                <h5 className="text-dark font-weight-bold my-1 mr-5">Cài đặt tài khoản</h5>
+                                <h5 className="text-dark font-weight-bold my-1 mr-5">
+                                    Cài đặt tài khoản
+                                </h5>
                                 {/* breadcrumb */}
                                 <ul className="breadcrumb font-weight-bold p-0 my-2 font-size-sm">
                                     <li className="breadcrumb-item">
-                                        <a href="homepage.html" className="text-muted">
+                                        <a
+                                            href="homepage.html"
+                                            className="text-muted"
+                                        >
                                             Trang chủ
                                         </a>
                                     </li>
                                     <li className="breadcrumb-item active">
-                                        <a href="profile.html" className="text-muted">
+                                        <a
+                                            href="profile.html"
+                                            className="text-muted"
+                                        >
                                             Xem hồ sơ
                                         </a>
                                     </li>
@@ -177,11 +208,18 @@ function EditProfile(props) {
                         <div className="card card-custom">
                             <header className="card-header py-3">
                                 <div className="card-title align-items-start flex-column">
-                                    <h3 className="card-label">Thông tin cá nhân</h3>
-                                    <span className="text-muted font-size-sm mt-1">Cập nhật thông tin cá nhân của bạn</span>
+                                    <h3 className="card-label">
+                                        Thông tin cá nhân
+                                    </h3>
+                                    <span className="text-muted font-size-sm mt-1">
+                                        Cập nhật thông tin cá nhân của bạn
+                                    </span>
                                 </div>
                                 <div className="card-toolbar">
-                                    <button type="submit" className="btn btn-chartjs mr-2">
+                                    <button
+                                        type="submit"
+                                        className="btn btn-chartjs mr-2"
+                                    >
                                         Lưu thay đổi
                                     </button>
                                 </div>
@@ -189,7 +227,9 @@ function EditProfile(props) {
                             <div className="card-body">
                                 {/* avatar */}
                                 <div className="form-group row">
-                                    <label className="col-xl-3 col-lg-4 col-form-label">Ảnh đại diện</label>
+                                    <label className="col-xl-3 col-lg-4 col-form-label">
+                                        Ảnh đại diện
+                                    </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <div
                                             className="image-input image-input-outline"
@@ -207,8 +247,15 @@ function EditProfile(props) {
                                                 data-original-title="Change avatar"
                                             >
                                                 <i className="fa fa-pen icon-sm text-muted" />
-                                                <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" />
-                                                <input type="hidden" name="profile_avatar_remove" />
+                                                <input
+                                                    type="file"
+                                                    name="profile_avatar"
+                                                    accept=".png, .jpg, .jpeg"
+                                                />
+                                                <input
+                                                    type="hidden"
+                                                    name="profile_avatar_remove"
+                                                />
                                             </label>
                                             <span
                                                 className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
@@ -227,12 +274,17 @@ function EditProfile(props) {
                                                 <i className="fas fa-times text-muted" />
                                             </span>
                                         </div>
-                                        <span className="form-text text-muted">Định dạng cho phép: png, jpg, jpeg.</span>
+                                        <span className="form-text text-muted">
+                                            Định dạng cho phép: png, jpg, jpeg.
+                                        </span>
                                     </div>
                                 </div>
                                 {/* email */}
                                 <div className="form-group row">
-                                    <label htmlFor="email" className="col-xl-3 col-lg-4 col-form-label">
+                                    <label
+                                        htmlFor="email"
+                                        className="col-xl-3 col-lg-4 col-form-label"
+                                    >
                                         Email
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
@@ -249,7 +301,10 @@ function EditProfile(props) {
                                 </div>
                                 {/* full name */}
                                 <div className="form-group row">
-                                    <label htmlFor="fullname" className="col-xl-3 col-lg-4 col-form-label">
+                                    <label
+                                        htmlFor="fullname"
+                                        className="col-xl-3 col-lg-4 col-form-label"
+                                    >
                                         Họ và tên
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
@@ -258,7 +313,7 @@ function EditProfile(props) {
                                             type="text"
                                             id="fullname"
                                             placeholder="Vui lòng nhập họ và tên của bạn"
-                                            defaultValue=""
+                                            defaultValue={user.input.fullname}
                                             ref={fullNameRef}
                                         />
                                     </div>
@@ -266,7 +321,10 @@ function EditProfile(props) {
                                 <div className="separator separator-dashed my-5" />
                                 {/* phone number */}
                                 <div className="form-group row">
-                                    <label htmlFor="phone" className="col-xl-3 col-lg-4 col-form-label">
+                                    <label
+                                        htmlFor="phone"
+                                        className="col-xl-3 col-lg-4 col-form-label"
+                                    >
                                         Số điện thoại
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
@@ -275,7 +333,7 @@ function EditProfile(props) {
                                             type="text"
                                             id="phone"
                                             placeholder="Số điện thoại của bạn"
-                                            defaultValue=""
+                                            defaultValue={user.input.phone}
                                             ref={phoneRef}
                                         />
                                         {/* <span class="form-text text-muted">Some help content goes here</span> */}
@@ -284,12 +342,17 @@ function EditProfile(props) {
                                 <div className="row">
                                     <label className="col-xl-3 col-lg-4" />
                                     <div className="col-xl-9 col-lg-8">
-                                        <h5 className="font-weight-normal mt-10 mb-6">Địa chỉ</h5>
+                                        <h5 className="font-weight-normal mt-10 mb-6">
+                                            Địa chỉ
+                                        </h5>
                                     </div>
                                 </div>
                                 {/* Tỉnh/Thành phố */}
                                 <div className="form-group row">
-                                    <label htmlFor="city" className="col-xl-3 col-lg-4 col-form-label">
+                                    <label
+                                        htmlFor="city"
+                                        className="col-xl-3 col-lg-4 col-form-label"
+                                    >
                                         Tỉnh/Thành phố
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
@@ -305,7 +368,10 @@ function EditProfile(props) {
 
                                 {/* Quận/Huyện */}
                                 <div className="form-group row">
-                                    <label htmlFor="district" className="col-xl-3 col-lg-4 col-form-label">
+                                    <label
+                                        htmlFor="district"
+                                        className="col-xl-3 col-lg-4 col-form-label"
+                                    >
                                         Quận/Huyện
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
@@ -315,7 +381,9 @@ function EditProfile(props) {
                                             id="district"
                                             onChange={handleDistrictChange}
                                         >
-                                            <option value="">Chọn Quận/Huyện</option>
+                                            <option value="">
+                                                Chọn Quận/Huyện
+                                            </option>
                                             {districtList()}
                                         </select>
                                     </div>
@@ -323,12 +391,21 @@ function EditProfile(props) {
 
                                 {/* Phường/Xã */}
                                 <div className="form-group row">
-                                    <label htmlFor="ward" className="col-xl-3 col-lg-4 col-form-label">
+                                    <label
+                                        htmlFor="ward"
+                                        className="col-xl-3 col-lg-4 col-form-label"
+                                    >
                                         Phường/Xã
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" ref={wardRef} id="ward">
-                                            <option value="">Chọn Phường/Xã</option>
+                                        <select
+                                            className="form-control form-control-lg"
+                                            ref={wardRef}
+                                            id="ward"
+                                        >
+                                            <option value="">
+                                                Chọn Phường/Xã
+                                            </option>
                                             {wardList()}
                                         </select>
                                     </div>
@@ -336,7 +413,10 @@ function EditProfile(props) {
 
                                 {/* Địa chỉ */}
                                 <div className="form-group row">
-                                    <label htmlFor="address" className="col-xl-3 col-lg-4 col-form-label">
+                                    <label
+                                        htmlFor="address"
+                                        className="col-xl-3 col-lg-4 col-form-label"
+                                    >
                                         Địa chỉ
                                     </label>
                                     <div className="col-xl-9 col-lg-8">

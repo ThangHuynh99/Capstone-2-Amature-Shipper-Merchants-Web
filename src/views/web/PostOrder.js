@@ -9,9 +9,8 @@ function PostOrder(props) {
     const { currentUser } = useAuth();
 
     const [userInfor, setUserInfor] = useState({
-        userID: currentUser.uid,
         fullname: "",
-        contact: "",
+        phone: "",
         address: "",
     });
 
@@ -24,7 +23,10 @@ function PostOrder(props) {
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
-                            setUserInfor(doc.data());
+                            setUserInfor(
+                                
+                                doc.data()
+                                );
                         } else {
                             console.log("No such document!");
                         }
@@ -40,7 +42,7 @@ function PostOrder(props) {
         <div className="header-fixed sidebar-enabled bg">
             <section className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
-                <MainPostOrder user={userInfor} />
+                <MainPostOrder user={userInfor} id_user={currentUser.uid}/>
                 <AsideRight />
             </section>
         </div>
