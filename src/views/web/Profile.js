@@ -20,38 +20,37 @@ export default function Profile() {
         input: {
             fullname: "",
             phone: "",
-            address: ""
-        }
+            address: "",
+        },
     });
 
-
     function changeToEdit() {
-        setIsShowEdit(true)
-        setIsShowProfile(false)
+        setIsShowEdit(true);
+        setIsShowProfile(false);
     }
 
-    function changeToProfile(){
-        setIsShowEdit(false)
-        setIsShowProfile(true)
+    function changeToProfile() {
+        setIsShowEdit(false);
+        setIsShowProfile(true);
         setUserInfor({
-            ... userInfor,
+            ...userInfor,
             error: "edit success !",
-            alert: "green"
-        })
+            alert: "green",
+        });
     }
 
     useEffect(() => {
         async function fetchUserInfor() {
             try {
-            await   db
+                await db
                     .collection("ShopProfile")
                     .doc(userInfor.uid)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
                             setUserInfor({
-                                ... userInfor ,
-                                input: doc.data()
+                                ...userInfor,
+                                input: doc.data(),
                             });
                             console.log(setUserInfor.input);
                         } else {
@@ -63,14 +62,14 @@ export default function Profile() {
             }
         }
         fetchUserInfor();
-    },);
+    });
 
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
-                {isShowProfile && <MainProfile onChange = {changeToEdit} user={userInfor} />}
-                {isShowEdit && <EditProfile user={userInfor} change = {changeToProfile} />}
+                {isShowProfile && <MainProfile onChange={changeToEdit} user={userInfor} />}
+                {isShowEdit && <EditProfile user={userInfor} change={changeToProfile} />}
                 <AsideRight />
             </div>
         </div>
