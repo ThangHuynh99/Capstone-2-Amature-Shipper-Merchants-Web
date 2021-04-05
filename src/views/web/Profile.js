@@ -63,7 +63,7 @@ export default function Profile() {
             }
         }
         fetchUserInfor();
-    }, [userInfor.input]);
+    },);
 
     return (
         <div className="header-fixed sidebar-enabled bg">
