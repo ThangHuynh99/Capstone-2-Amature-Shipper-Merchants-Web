@@ -25,16 +25,18 @@ export default function Profile() {
     });
 
 
+   
+
     function changeToEdit() {
         setIsShowEdit(true)
         setIsShowProfile(false)
     }
 
-    function changeToProfile(){
+    function changeToProfile() {
         setIsShowEdit(false)
         setIsShowProfile(true)
         setUserInfor({
-            ... userInfor,
+            ...userInfor,
             error: "edit success !",
             alert: "green"
         })
@@ -43,14 +45,14 @@ export default function Profile() {
     useEffect(() => {
         async function fetchUserInfor() {
             try {
-            await   db
+                await db
                     .collection("ShopProfile")
                     .doc(userInfor.uid)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
                             setUserInfor({
-                                ... userInfor ,
+                                ...userInfor,
                                 input: doc.data()
                             });
                             console.log(setUserInfor.input);
@@ -63,14 +65,14 @@ export default function Profile() {
             }
         }
         fetchUserInfor();
-    },);
+    }, []);
 
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
-                {isShowProfile && <MainProfile onChange = {changeToEdit} user={userInfor} />}
-                {isShowEdit && <EditProfile user={userInfor} change = {changeToProfile} />}
+                {isShowProfile && <MainProfile onChange={changeToEdit} user={userInfor} />}
+                {isShowEdit && <EditProfile user={userInfor} change={changeToProfile} />}
                 <AsideRight />
             </div>
         </div>

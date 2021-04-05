@@ -3,36 +3,23 @@ import PropTypes from "prop-types";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import InProcessing from "../labels/InProcessing";
-import { realtime } from "../../firebase";
 
-MainHomePage.propTypes = {};
+MainHomePage.propTypes = {
+    datas: PropTypes.array, 
+};
+
+MainHomePage.defaultProps = {
+    datas: [],
+}
 
 function MainHomePage(props) {
+    const { datas } = props
 
-    const [data, setData] = useState([{
-        phi_giao: '',
-        ten_nguoi_gui: '',
-        sdt_nguoi_gui: '',
-        noi_giao: '',
-        thoi_gian: ''
-    }])
+    console.log(datas);
 
-    const [status, setStatus] = useState(0);
-    
-    useEffect(() => {
-        async function fetchOrder() {
-            try {
-                realtime.ref("OrderStatus/").on('value', (snapshot) => {
-                setData(snapshot.val());
-                console.log(data);
-              });
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchOrder();
-    }, []);
+    const [status, setStatus] = useState(0)
 
+   
     return (
         <main className="d-flex flex-column flex-row-fluid wrapper">
             <Header />
@@ -81,31 +68,34 @@ function MainHomePage(props) {
                     <article className="card-body">
                         <div className="d-flex align-items-start">
                             <span className="bullet bullet-bar bg-orange align-self-stretch" />
-                            <div className="d-flex flex-column flex-grow-1 ml-4">
-                                <header className="card-title content">
-                                    <span>#1111-2121</span>
-                                    <span className>Hôm nay 10:00</span>
-                                </header>
-                                <section className="card-info content">
-                                    <p>
-                                        <span className="payment">
-                                            85,000đ - Tiền mặt
+
+                             {datas.map(data => (
+                                <div className="d-flex flex-column flex-grow-1 ml-4">
+                                    <header className="card-title content">
+                                        <input type="hidden" value={data.id_post}/>
+                                        <span >{data.id_post}</span>
+                                        <span className>{data.thoi_gian}</span>
+                                    </header>
+                                    <section className="card-info content">
+                                        <p>
+                                            <span className="payment">
+                                                {data.phi_giao} - Tiền mặt
+                                            </span>
+                                            <br />
+                                            {data.ten_nguoi_gui} - {data.sdt_nguoi_gui}
+                                        </p>
+                                        <span className="delivery">
+                                            Giao hàng tới
                                         </span>
-                                        <br />
-                                        Nguyễn Văn Quỳnh - 0344 063 164
-                                    </p>
-                                    <span className="delivery">
-                                        Giao hàng tới
-                                    </span>
-                                    <div className="d-flex align-items-center justify-content-between">
-                                        <address className="mb-0 pl-0 col-9">
-                                            986, Ngô Quyền, Phường An Hải Bắc,
-                                            Quận Sơn Trà, Thành phố Đà Nẵng
-                                        </address>
-                                        <InProcessing />
-                                    </div>
-                                </section>
-                            </div>
+                                        <div className="d-flex align-items-center justify-content-between">
+                                            <address className="mb-0 pl-0 col-9">
+                                                {data.noi_giao}
+                                            </address>
+                                            <InProcessing />
+                                        </div>
+                                    </section>
+                                </div>
+                            ))} 
                         </div>
                         <div className="separator separator-dashed my-5" />
                     </article>

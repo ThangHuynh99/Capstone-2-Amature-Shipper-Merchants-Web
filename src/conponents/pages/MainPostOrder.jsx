@@ -184,7 +184,7 @@ function MainPostOrder(props) {
             });
             
             //tạo bảng transaction
-            await realtime.ref("newsfeed/Transaction/" + id).set({
+            await realtime.ref("Transaction/" + id_user + "/" + id).set({
                 id_post: id,
                 id_shipper: '',
                 status: '',
