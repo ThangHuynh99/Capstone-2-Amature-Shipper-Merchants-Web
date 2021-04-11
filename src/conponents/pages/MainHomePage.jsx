@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import Header from "../common/Header";
-import Footer from "../common/Footer";
-import InProcessing from "../labels/InProcessing";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import Header from '../common/Header';
+import Footer from '../common/Footer';
+import InProcessing from '../labels/InProcessing';
 
 MainHomePage.propTypes = {
     datas: PropTypes.object,
@@ -18,9 +18,7 @@ function MainHomePage(props) {
     const { datas } = props;
 
     console.log(datas);
-    function handleClick(){
-
-    }
+    function handleClick() {}
     function showOrder() {
         let items = [];
         Object.values(datas).map((values, index) => {
@@ -32,22 +30,17 @@ function MainHomePage(props) {
                             <header className="card-title content">
                                 <input type="hidden" value={values.id_post} />
                                 <span>{values.id_post}</span>
-                                <span className>{values.thoi_gian}</span>
+                                <span>{values.thoi_gian}</span>
                             </header>
                             <section className="card-info content">
                                 <p>
-                                    <span className="payment">
-                                        {values.phi_giao} - Tiền mặt
-                                    </span>
+                                    <span className="payment">{values.phi_giao} - Tiền mặt</span>
                                     <br />
-                                    {values.ten_nguoi_gui} -{" "}
-                                    {values.sdt_nguoi_gui}
+                                    {values.ten_nguoi_gui} - {values.sdt_nguoi_gui}
                                 </p>
                                 <span className="delivery">Giao hàng tới</span>
                                 <div className="d-flex align-items-center justify-content-between">
-                                    <address className="mb-0 pl-0 col-9">
-                                        {values.noi_giao}
-                                    </address>
+                                    <address className="mb-0 pl-0 col-9">{values.noi_giao}</address>
                                     <InProcessing />
                                 </div>
                             </section>
@@ -68,47 +61,31 @@ function MainHomePage(props) {
                     <header className="card-header border-0">
                         <div className="card-title py-4">
                             <h3 className="card-label">
-                                <span className="d-block title">
-                                    Danh sách đơn
-                                </span>
-                                <span className="d-block text-time mt-2 font-size-sm">
-                                    trong 24 giờ
-                                </span>
+                                <span className="d-block title">Danh sách đơn</span>
+                                <span className="d-block text-time mt-2 font-size-sm">trong 24 giờ</span>
                             </h3>
                         </div>
                         <div className="card-toolbar">
                             <ul className="nav nav-pills">
                                 <li className="nav-item">
-                                    <a
-                                        href="#tab1"
-                                        className="nav-link py-2 px-4"
-                                    >
+                                    <a href="#tab1" className="nav-link py-2 px-4">
                                         <span className="nav-text">Tháng</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a
-                                        href="#tab2"
-                                        className="nav-link py-2 px-4"
-                                    >
+                                    <a href="#tab2" className="nav-link py-2 px-4">
                                         <span className="nav-text">Tuần</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a
-                                        href="#tab3"
-                                        className="nav-link py-2 px-4 active"
-                                    >
+                                    <a href="#tab3" className="nav-link py-2 px-4 active">
                                         <span className="nav-text">Ngày</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </header>
-                    <article className="card-body">
-                       {showOrder()}
-                       
-                    </article>
+                    <article className="card-body">{showOrder()}</article>
                 </div>
             </section>
             <Footer />

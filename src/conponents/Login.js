@@ -1,18 +1,18 @@
-import React, { Component, useRef, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { Alert } from "react-bootstrap";
-import "../assets/css/portal.css";
+import React, { Component, useRef, useState } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { Alert } from 'react-bootstrap';
+import '../assets/css/portal.css';
 
-import Logo from "./Logo";
-import Stringquery from "query-string";
+import Logo from './Logo';
+import Stringquery from 'query-string';
 
 function Login1(props) {
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -20,18 +20,18 @@ function Login1(props) {
 
     const { signin } = useAuth();
     let url = props.location.search;
-    const [params, setParams] = useState("");
+    const [params, setParams] = useState('');
     const para = Stringquery.parse(url);
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            setError("");
+            setError('');
             setLoading(true);
             await signin(emailRef.current.value, passwordRef.current.value);
-            history.push("/home");
+            history.push('/home');
         } catch {
-            setError("Username or password is incorrect !");
+            setError('Username or password is incorrect !');
         }
 
         setLoading(false);
@@ -51,7 +51,7 @@ function Login1(props) {
                                 <h3>Đăng nhập</h3>
                                 <div className="text-muted font-weight-bold">Amateur Shipper for Merchants</div>
                             </div>
-                            {error && <Alert style={{ color: "red" }}>{error}</Alert>}
+                            {error && <Alert style={{ color: 'red' }}>{error}</Alert>}
                             <form className="form" id="login_signin_form" onSubmit={handleSubmit}>
                                 <div className="form-group mb-5">
                                     <input
@@ -80,10 +80,9 @@ function Login1(props) {
                                             Ghi nhớ đăng nhập
                                         </label>
                                     </div>
-                                    <Link to="forgotpw">
-                                        <a id="login_forgot" className="text-muted text-hover-primary">
-                                            Quên mật khẩu?
-                                        </a>
+
+                                    <Link to="forgotpw" id="login_forgot" className="text-muted text-hover-primary">
+                                        Quên mật khẩu?
                                     </Link>
                                 </div>
                                 <button

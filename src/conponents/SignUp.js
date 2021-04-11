@@ -1,24 +1,18 @@
-import React, { Component, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from "../context/AuthContext"
-import { Alert } from "react-bootstrap"
+import { useAuth } from '../context/AuthContext';
+import { Alert } from 'react-bootstrap';
 import Logo from './Logo';
-import "../assets/css/portal.css";
+import '../assets/css/portal.css';
 
 function Register(props) {
-
     const emailRef = useRef();
     const passWordRef = useRef();
     const passWordConfirmRef = useRef();
-    const fullNameRef = useRef();
 
-    const [email, setEmail] = useState('');
-    const [passWord, setPassWord] = useState('');
-    const [passWordConfirm, setPassWordConfirm] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [alert, setAlert] = useState("");
-
+    const [alert, setAlert] = useState('');
 
     const { signup } = useAuth();
 
@@ -26,25 +20,25 @@ function Register(props) {
         e.preventDefault();
 
         if (passWordRef.current.value !== passWordConfirmRef.current.value) {
-            setAlert("red");
+            setAlert('red');
             return setError('Password is not match !');
         }
 
         try {
-            setLoading(true)
+            setLoading(true);
             await signup(emailRef.current.value, passWordRef.current.value);
-            setAlert("green");
-            setError("Register success !");
+            setAlert('green');
+            setError('Register success !');
         } catch {
-            setAlert("red");
+            setAlert('red');
             setError('Failed to create an account !');
-            console.log(emailRef.current.value, "va", passWordRef.current.value)
+            console.log(emailRef.current.value, 'va', passWordRef.current.value);
         }
-        setLoading(false)
+        setLoading(false);
     }
 
     return (
-        <div style={{backgroundColor: "white"}}>
+        <div style={{ backgroundColor: 'white' }}>
             {/* main page */}
             <main className="d-flex flex-column flex-root">
                 {/* register page */}
@@ -63,25 +57,61 @@ function Register(props) {
                                 {error && <Alert style={{ color: alert }}>{error}</Alert>}
                                 <form className="form" id="login_signup_form" onSubmit={handleSubmit}>
                                     <div className="form-group mb-5">
-                                        <input className="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" name="email" autoComplete="off" ref = {emailRef}/>
+                                        <input
+                                            className="form-control h-auto form-control-solid py-4 px-8"
+                                            type="text"
+                                            placeholder="Email"
+                                            name="email"
+                                            autoComplete="off"
+                                            ref={emailRef}
+                                        />
                                     </div>
                                     <div className="form-group mb-5">
-                                        <input className="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="Mật khẩu" name="password" ref = {passWordRef}/>
+                                        <input
+                                            className="form-control h-auto form-control-solid py-4 px-8"
+                                            type="password"
+                                            placeholder="Mật khẩu"
+                                            name="password"
+                                            ref={passWordRef}
+                                        />
                                     </div>
                                     <div className="form-group mb-5">
-                                        <input className="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="Nhập lại mật khẩu" name="cpassword" ref = {passWordConfirmRef}/>
+                                        <input
+                                            className="form-control h-auto form-control-solid py-4 px-8"
+                                            type="password"
+                                            placeholder="Nhập lại mật khẩu"
+                                            name="cpassword"
+                                            ref={passWordConfirmRef}
+                                        />
                                     </div>
                                     <div className="form-group mb-5 text-left">
                                         <div className="checkbox-inline">
                                             <label className="checkbox m-0">
                                                 <input type="checkbox" name="agree" />
-                                                <span />Tôi đồng ý với các <a href="#" className="ml-1">điều khoản và quy định</a>.</label>
+                                                <span />
+                                                Tôi đồng ý với các{' '}
+                                                <Link to="#" className="ml-1">
+                                                    điều khoản và quy định
+                                                </Link>
+                                                .
+                                            </label>
                                         </div>
                                         <div className="form-text text-muted text-center" />
                                     </div>
                                     <div className="form-group d-flex flex-wrap flex-center mt-10">
-                                        <Link to="/login"><span className="btn btn-secondary font-weight-bold px-9 py-4 my-3 mx-2"><i className="fad fa-long-arrow-left" /> Quay lại</span></Link>                                        
-                                        <button disabled={loading} type = "submit" id="login_signup_submit" className="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">Đăng ký</button>
+                                        <Link to="/login">
+                                            <span className="btn btn-secondary font-weight-bold px-9 py-4 my-3 mx-2">
+                                                <i className="fad fa-long-arrow-left" /> Quay lại
+                                            </span>
+                                        </Link>
+                                        <button
+                                            disabled={loading}
+                                            type="submit"
+                                            id="login_signup_submit"
+                                            className="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2"
+                                        >
+                                            Đăng ký
+                                        </button>
                                     </div>
                                 </form>
                             </div>

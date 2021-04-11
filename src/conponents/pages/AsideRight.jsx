@@ -1,44 +1,43 @@
-import PropTypes from "prop-types";
-import Signout from "../LogOut";
-import Avatar from "../../assets/media/avatar.png";
-import AbstractThree from "../../assets/media/abstract-3.svg";
-import AbstractTwo from "../../assets/media/abstract-2.svg";
-import { Link } from "react-router-dom";
-import { db } from "../../firebase";
-import React, { useState, useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
+import PropTypes from 'prop-types';
+import Signout from '../LogOut';
+import Avatar from '../../assets/media/avatar.png';
+import AbstractThree from '../../assets/media/abstract-3.svg';
+import AbstractTwo from '../../assets/media/abstract-2.svg';
+import { Link } from 'react-router-dom';
+import { db } from '../../firebase';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
-InforHomePage.propTypes = {
-    name: PropTypes.string
+AsideRight.propTypes = {
+    name: PropTypes.string,
 };
 
-InforHomePage.defaultProps = {
-    name: ""
+AsideRight.defaultProps = {
+    name: '',
 };
 
-function InforHomePage(props) {
-
+function AsideRight(props) {
     const { currentUser } = useAuth();
 
-    const  [input, setInput] = useState({
-        fullname: "",
-        phone: "",
-        address: ""
-    })
+    const [input, setInput] = useState({
+        fullname: '',
+        phone: '',
+        address: '',
+    });
 
     useEffect(() => {
         async function fetchUserInfor() {
             try {
-            await   db
-                    .collection("ShopProfile")
+                await db
+                    .collection('ShopProfile')
                     .doc(currentUser.uid)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
-                            setInput(doc.data())
-                            console.log(input)
+                            setInput(doc.data());
+                            console.log(input);
                         } else {
-                            console.log("No such document!");
+                            console.log('No such document!');
                         }
                     });
             } catch (error) {
@@ -46,12 +45,15 @@ function InforHomePage(props) {
             }
         }
         fetchUserInfor();
-    },[]);
+    }, []);
 
     return (
         <aside className="sidebar d-flex flex-row-auto flex-column">
             <div className="d-flex flex-column pb-10 pt-9 px-5 px-lg-10">
-                <section className="card card-custom bgi-no-repeat gutter-b" style={{backgroundPosition: 'right top', backgroundSize: '30% auto', backgroundImage: `url(${AbstractThree})`}}>
+                <section
+                    className="card card-custom bgi-no-repeat gutter-b"
+                    style={{ backgroundPosition: 'right top', backgroundSize: '30% auto', backgroundImage: `url(${AbstractThree})` }}
+                >
                     <div className="card-body pt-15">
                         <div className="text-center mb-10">
                             <div className="symbol symbol-60 symbol-circle symbol-xl-90">
@@ -67,12 +69,9 @@ function InforHomePage(props) {
                             <div className="text-muted mb-2">Shop Owner</div>
                             <span className="label label-light-warning label-inline font-weight-bold label-lg">Hoạt động</span>
                             <div className="mt-10">
-                                <Link to="/profile">
-                                    {" "}
-                                    <a className="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">
-                                        <i className="fad fa-user-circle mr-1" />
-                                        Xem hồ sơ
-                                    </a>
+                                <Link to="/profile" className="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">
+                                    <i className="fad fa-user-circle mr-1" />
+                                    Xem hồ sơ
                                 </Link>
                                 <a
                                     href="change-pw.html"
@@ -86,7 +85,10 @@ function InforHomePage(props) {
                         </div>
                     </div>
                 </section>
-                <section className="card card-custom bgi-no-repeat gutter-b" style={{backgroundPosition: 'right top', backgroundSize: '30% auto', backgroundImage: `url(${AbstractTwo})`}}>
+                <section
+                    className="card card-custom bgi-no-repeat gutter-b"
+                    style={{ backgroundPosition: 'right top', backgroundSize: '30% auto', backgroundImage: `url(${AbstractTwo})` }}
+                >
                     <div className="card-header border-0 pt-5">
                         <h3 className="card-title align-items-start flex-column">
                             <span className="title">Thông báo gần đây</span>
@@ -113,4 +115,4 @@ function InforHomePage(props) {
     );
 }
 
-export default InforHomePage;
+export default AsideRight;

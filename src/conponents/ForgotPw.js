@@ -1,16 +1,16 @@
-import React, { Component, useRef, useState } from "react";
-import Logo from "./Logo";
-import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { Alert } from "react-bootstrap";
-import "../assets/css/portal.css";
+import React, { useRef, useState } from 'react';
+import Logo from './Logo';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { Alert } from 'react-bootstrap';
+import '../assets/css/portal.css';
 
 function ForgotPass() {
     const emailRef = useRef();
 
-    const [error, setError] = useState("");
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [alert, setAlert] = useState("");
+    const [alert, setAlert] = useState('');
 
     const { resetPassword } = useAuth();
 
@@ -19,11 +19,11 @@ function ForgotPass() {
         try {
             setLoading(true);
             await resetPassword(emailRef.current.value);
-            setAlert("green");
-            setError("request reset password success, check your inbox for further instructions !");
+            setAlert('green');
+            setError('request reset password success, check your inbox for further instructions !');
         } catch {
-            setAlert("red");
-            setError("Email not exist !");
+            setAlert('red');
+            setError('Email not exist !');
         }
         setLoading(false);
     }

@@ -1,7 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
-
-Footer.propTypes = {};
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer(props) {
     return (
@@ -9,20 +7,20 @@ function Footer(props) {
             <div className="container-fluid d-flex flex-md-row align-items-center justify-content-between">
                 <div className="text-nav">
                     <span>2021©</span>
-                    <a href="#" target="_blank">
+                    <Link to="#" target="_blank">
                         The Night Owl
-                    </a>
+                    </Link>
                 </div>
                 <div className="text-nav">
-                    <a href="#" className="pr-3 pl-0" target="_blank">
+                    <Link to="#" className="pr-3 pl-0" target="_blank">
                         About
-                    </a>
-                    <a href="#" className="px-3" target="_blank">
+                    </Link>
+                    <Link to="#" className="px-3" target="_blank">
                         Team
-                    </a>
-                    <a href="#" className="pl-3 pr-0" target="_blank">
+                    </Link>
+                    <Link to="#" className="pl-3 pr-0" target="_blank">
                         Contact
-                    </a>
+                    </Link>
                 </div>
             </div>
         </footer>
