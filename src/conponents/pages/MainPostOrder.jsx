@@ -26,7 +26,7 @@ function MainPostOrder(props) {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = time + " " + date;
 
-    const id = random.generate(8) + random.generate(8);
+    const id = random.generate(10) + random.generate(10);
 
     const [ngayTao, setNgayTao] = useState(dateTime);
 

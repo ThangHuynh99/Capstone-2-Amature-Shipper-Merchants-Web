@@ -14,19 +14,22 @@ function HomePage() {
         phone: "",
         address: ""
     })
-
-    const [data, setData] = useState([
+    const [status, setStatus] = useState('');
+    const [data, setData] = useState(
         {
             id_post: "",
-            phi_giao: "",
-            ten_nguoi_gui: "",
-            sdt_nguoi_gui: "",
+            id_shop: "",
+            km: "",
             noi_giao: "",
             thoi_gian: "",
-            status: ""
-        },
-    ]);
+            phi_giao: "",
+            phi_ung: "",
+            status: "",
+            ghi_chu: ""
+        }
+    );
 
+  
     useEffect(() => {
         async function fetchUserInfor() {
             try {
@@ -36,19 +39,18 @@ function HomePage() {
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
-                            setInput(
-                                doc.data()
-                            );
-                            console.log(input);
+                             setInput(
+                                 doc.data()
+                             );
                         } else {
                             console.log("No such document!");
                         }
                     });
 
-                await realtime.ref("OrderStatus/").on("value", (snapshot) => {
-                    setData(snapshot.val());
-                    console.log(data);
-                });
+                await realtime.ref("OrderStatus").on('value', (snapshot) => {
+                    setData(snapshot.val())
+                    console.log(snapshot.val())
+                })
             } catch (error) {
                 console.log(error);
             }
@@ -56,11 +58,12 @@ function HomePage() {
         fetchUserInfor();
     }, []);
 
+  
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
-                <MainHomePage datas={data}/>
+                <MainHomePage datas={data} />
                 <AsideRight name={input.fullname} />
             </div>
         </div>

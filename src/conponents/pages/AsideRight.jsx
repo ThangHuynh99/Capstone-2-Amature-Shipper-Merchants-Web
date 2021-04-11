@@ -46,7 +46,7 @@ function InforHomePage(props) {
             }
         }
         fetchUserInfor();
-    }, []);
+    },[]);
 
     return (
         <aside className="sidebar d-flex flex-row-auto flex-column">

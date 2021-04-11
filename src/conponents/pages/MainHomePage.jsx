@@ -5,21 +5,61 @@ import Footer from "../common/Footer";
 import InProcessing from "../labels/InProcessing";
 
 MainHomePage.propTypes = {
-    datas: PropTypes.array, 
+    datas: PropTypes.object,
+    onClick: PropTypes.func,
 };
 
 MainHomePage.defaultProps = {
-    datas: [],
-}
+    datas: null,
+    onClick: null,
+};
 
 function MainHomePage(props) {
-    const { datas } = props
+    const { datas } = props;
 
     console.log(datas);
+    function handleClick(){
 
-    const [status, setStatus] = useState(0)
+    }
+    function showOrder() {
+        let items = [];
+        Object.values(datas).map((values, index) => {
+            items.push(
+                <div onClick={handleClick}>
+                    <div className="d-flex align-items-start">
+                        <span className="bullet bullet-bar bg-orange align-self-stretch" />
+                        <div className="d-flex flex-column flex-grow-1 ml-4">
+                            <header className="card-title content">
+                                <input type="hidden" value={values.id_post} />
+                                <span>{values.id_post}</span>
+                                <span className>{values.thoi_gian}</span>
+                            </header>
+                            <section className="card-info content">
+                                <p>
+                                    <span className="payment">
+                                        {values.phi_giao} - Tiền mặt
+                                    </span>
+                                    <br />
+                                    {values.ten_nguoi_gui} -{" "}
+                                    {values.sdt_nguoi_gui}
+                                </p>
+                                <span className="delivery">Giao hàng tới</span>
+                                <div className="d-flex align-items-center justify-content-between">
+                                    <address className="mb-0 pl-0 col-9">
+                                        {values.noi_giao}
+                                    </address>
+                                    <InProcessing />
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div className="separator separator-dashed my-5" />
+                </div>
+            );
+        });
+        return items;
+    }
 
-   
     return (
         <main className="d-flex flex-column flex-row-fluid wrapper">
             <Header />
@@ -66,38 +106,8 @@ function MainHomePage(props) {
                         </div>
                     </header>
                     <article className="card-body">
-                        <div className="d-flex align-items-start">
-                            <span className="bullet bullet-bar bg-orange align-self-stretch" />
-
-                             {datas.map(data => (
-                                <div className="d-flex flex-column flex-grow-1 ml-4">
-                                    <header className="card-title content">
-                                        <input type="hidden" value={data.id_post}/>
-                                        <span >{data.id_post}</span>
-                                        <span className>{data.thoi_gian}</span>
-                                    </header>
-                                    <section className="card-info content">
-                                        <p>
-                                            <span className="payment">
-                                                {data.phi_giao} - Tiền mặt
-                                            </span>
-                                            <br />
-                                            {data.ten_nguoi_gui} - {data.sdt_nguoi_gui}
-                                        </p>
-                                        <span className="delivery">
-                                            Giao hàng tới
-                                        </span>
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <address className="mb-0 pl-0 col-9">
-                                                {data.noi_giao}
-                                            </address>
-                                            <InProcessing />
-                                        </div>
-                                    </section>
-                                </div>
-                            ))} 
-                        </div>
-                        <div className="separator separator-dashed my-5" />
+                       {showOrder()}
+                       
                     </article>
                 </div>
             </section>
