@@ -20,16 +20,13 @@ export default function Profile() {
         input: {
             fullname: "",
             phone: "",
-            address: ""
-        }
+            address: "",
+        },
     });
 
-
-   
-
     function changeToEdit() {
-        setIsShowEdit(true)
-        setIsShowProfile(false)
+        setIsShowEdit(true);
+        setIsShowProfile(false);
     }
 
     function changeToProfile() {
@@ -38,8 +35,8 @@ export default function Profile() {
         setUserInfor({
             ...userInfor,
             error: "edit success !",
-            alert: "green"
-        })
+            alert: "green",
+        });
     }
 
     useEffect(() => {
