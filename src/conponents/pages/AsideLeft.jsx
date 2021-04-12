@@ -15,7 +15,7 @@ function AsideLeft(props) {
             <nav className="d-flex flex-column align-items-center flex-column-fluid pb-10 scroll ps">
                 <ul className="nav flex-column">
                     <li className="nav-item mb-2">
-                        <Link to="/profile" className="nav-link btn btn-icon btn-lg btn-borderless active">
+                        <Link to="/home" className="nav-link btn btn-icon btn-lg btn-borderless active">
                             <i className="fad fa-home-lg-alt" />
                         </Link>
                     </li>
