@@ -1,32 +1,27 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
-import { realtime } from "../../firebase";
 import { useHistory } from "react-router";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import random from "randomstring";
 
-import $ from "jquery";
-import { propTypes } from "react-bootstrap/esm/Image";
-
 MainPostOrder.propTypes = {
-    user: PropTypes.object,
-    id_user: PropTypes.string
+    postOrder: PropTypes.func
 };
 
 MainPostOrder.defaultProps = {
-    user: "",
-    id_user: ''
+    postOrder: null
 };
 
 function MainPostOrder(props) {
-    const { user, id_user } = props;
+    const { postOrder } = props;
     var today = new Date();
     var date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = time + " " + date;
 
-    const id = random.generate(10) + random.generate(10);
+    const idPOST = random.generate(10) + random.generate(10);
+    const idChat = random.generate(10) + random.generate(10);
 
     const [ngayTao, setNgayTao] = useState(dateTime);
 
@@ -130,70 +125,31 @@ function MainPostOrder(props) {
         }
     }
 
+  
     //handle submitForm
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        try {
-            //tao bảng newsfeed
-            await realtime.ref("newsfeed/" + id).set({
-                id_post: id,
-                noi_giao:
-                    shipAddressRef.current.value +
-                    "," +
-                    shipWardRef.current.value +
-                    "," +
-                    shipDistrcitRef.current.value +
-                    "," +
-                    "Thành phố Đà Nẵng",
-                noi_nhan: user.address,
-                ghi_chu: noteRef.current.value,
-                km: "3km",
-                thoi_gian: ngayTao,
-                sdt_nguoi_nhan: numberRef.current.value,
-                ten_nguoi_nhan: customerRef.current.value,
-                sdt_nguoi_gui: user.phone,
-                ten_nguoi_gui: user.fullname,
-                phi_giao: shipFeeRef.current.value,
-                phi_ung: depositFeeRef.current.value,
-                id_shop: id_user
-            });
-
-            //tạo bảng orderstatus
-            await realtime.ref("OrderStatus/" + id).set({
-                id_post: id,
-                id_shop: id_user,
-                status: 0,
-                noi_giao:
-                    shipAddressRef.current.value +
-                    "," +
-                    shipWardRef.current.value +
-                    "," +
-                    shipDistrcitRef.current.value +
-                    "," +
-                    "Thành phố Đà Nẵng",
-                noi_nhan: user.address,
-                ghi_chu: noteRef.current.value,
-                km: "3km",
-                thoi_gian: ngayTao,
-                sdt_nguoi_nhan: numberRef.current.value,
-                ten_nguoi_nhan: customerRef.current.value,
-                sdt_nguoi_gui: user.phone,
-                ten_nguoi_gui: user.fullname,
-                phi_giao: shipFeeRef.current.value,
-                phi_ung: depositFeeRef.current.value,
-            });
-            
-            //tạo bảng transaction
-            await realtime.ref("Transaction/" + id_user + "/" + id).set({
-                id_post: id,
-                id_shipper: '',
-                status: '',
-                id_roomchat: ''
-            });
-            
-            history.push("/home");
-        } catch (error) {
-            console.log(error);
+        const dataPostOrder = {
+            idPost: idPOST,
+            noi_giao:  shipAddressRef.current.value +
+            "," +
+            shipWardRef.current.value +
+            "," +
+            shipDistrcitRef.current.value +
+            "," +
+            "Thành phố Đà Nẵng",
+            ghi_chu: noteRef.current.value,
+            km: "3km",
+            thoi_gian: ngayTao,
+            sdt_nguoi_nhan: numberRef.current.value,
+            ten_nguoi_nhan: customerRef.current.value,
+            phi_giao: shipFeeRef.current.value,
+            phi_ung: depositFeeRef.current.value,
+            id_roomchat: idChat
+        }
+    
+        if(postOrder){
+            postOrder(dataPostOrder);
         }
     }
 

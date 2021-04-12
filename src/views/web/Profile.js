@@ -39,6 +39,22 @@ export default function Profile() {
         });
     }
 
+   async function editProfile(fullName, phone, address){
+        try {
+            await db
+                .collection('ShopProfile')
+                .doc(userInfor.uid)
+                .set({
+                    fullname: fullName,
+                    phone: phone,
+                    address: address,
+                });
+            changeToProfile();
+        } catch {
+            console.log('error');
+        }
+    }
+
     useEffect(() => {
         async function fetchUserInfor() {
             try {
@@ -69,7 +85,7 @@ export default function Profile() {
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
                 {isShowProfile && <MainProfile onChange={changeToEdit} user={userInfor} />}
-                {isShowEdit && <EditProfile user={userInfor} change={changeToProfile} />}
+                {isShowEdit && <EditProfile user={userInfor}  edit={editProfile}/>}
                 <AsideRight />
             </div>
         </div>

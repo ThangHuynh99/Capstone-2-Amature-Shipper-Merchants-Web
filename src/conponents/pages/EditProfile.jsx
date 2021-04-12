@@ -9,16 +9,16 @@ import { Link } from 'react-router-dom';
 
 EditProfile.propTypes = {
     user: PropTypes.object,
-    change: PropTypes.func,
+    edit: PropTypes.func
 };
 
 EditProfile.defaultProps = {
     user: '',
-    change: null,
+    edit: null
 };
 
 function EditProfile(props) {
-    const { user, change } = props;
+    const { user, edit } = props;
     const history = useHistory();
 
     const fullNameRef = useRef();
@@ -117,26 +117,11 @@ function EditProfile(props) {
     }
 
     //form handle
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        try {
-            // db.settings({
-            //   timestampsInSnapshots: true,
-            // });
-            //check id của profile có tồn tại hay chưa, chưa thì insert, rồi thì update
-            // .doc("HnuKdKVRz3nRBW3P4CLV")
-            await db
-                .collection('ShopProfile')
-                .doc(user.uid)
-                .set({
-                    fullname: fullNameRef.current.value,
-                    phone: phoneRef.current.value,
-                    address: addressRef.current.value + ', ' + wardRef.current.value + ', ' + districtRef.current.value + ', Thành phố Đà Nẵng',
-                });
-            change();
-        } catch {
-            console.log('error');
-        }
+       if(edit){
+            edit(fullNameRef.current.value, phoneRef.current.value, addressRef.current.value + ', ' + wardRef.current.value + ', ' + districtRef.current.value + ', Thành phố Đà Nẵng');
+       }
     }
 
     return (

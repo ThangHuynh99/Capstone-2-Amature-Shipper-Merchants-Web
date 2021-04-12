@@ -47,7 +47,7 @@ function HomePage() {
                         }
                     });
 
-                await realtime.ref("OrderStatus").on('value', (snapshot) => {
+                await realtime.ref("OrderStatus/" + id).on('value', (snapshot) => {
                     setData(snapshot.val())
                     console.log(snapshot.val())
                 })

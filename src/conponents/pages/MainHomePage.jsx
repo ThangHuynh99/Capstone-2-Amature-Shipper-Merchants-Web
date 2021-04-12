@@ -17,8 +17,10 @@ MainHomePage.defaultProps = {
 function MainHomePage(props) {
     const { datas } = props;
 
-    console.log(datas);
-    function handleClick() {}
+    function handleClick() {
+
+    }
+    
     function showOrder() {
         let items = [];
         Object.values(datas).map((values, index) => {
@@ -28,19 +30,18 @@ function MainHomePage(props) {
                         <span className="bullet bullet-bar bg-orange align-self-stretch" />
                         <div className="d-flex flex-column flex-grow-1 ml-4">
                             <header className="card-title content">
-                                <input type="hidden" value={values.id_post} />
-                                <span>{values.id_post}</span>
-                                <span>{values.thoi_gian}</span>
+                                <span key={values.id_post}>{values.id_post}</span>
+                                <span key={values.thoi_gian}>{values.thoi_gian}</span>
                             </header>
                             <section className="card-info content">
                                 <p>
-                                    <span className="payment">{values.phi_giao} - Tiền mặt</span>
+                                    <span className="payment" key={values.phi_giao}>{values.phi_giao} - Tiền mặt</span>
                                     <br />
-                                    {values.ten_nguoi_gui} - {values.sdt_nguoi_gui}
+                                    <span key={values.ten_nguoi_gui}>{values.ten_nguoi_gui}</span> - <span key={values.sdt_nguoi_gui}>{values.sdt_nguoi_gui}</span>
                                 </p>
                                 <span className="delivery">Giao hàng tới</span>
                                 <div className="d-flex align-items-center justify-content-between">
-                                    <address className="mb-0 pl-0 col-9">{values.noi_giao}</address>
+                                    <address className="mb-0 pl-0 col-9" key={values.noi_giao}>{values.noi_giao}</address>
                                     <InProcessing />
                                 </div>
                             </section>
