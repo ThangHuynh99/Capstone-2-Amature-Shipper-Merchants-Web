@@ -5,6 +5,7 @@ import Footer from '../common/Footer';
 import Avatar from '../../assets/media/avatar.png';
 import { useHistory } from 'react-router';
 import { db } from '../../firebase';
+import { Link } from 'react-router-dom';
 
 EditProfile.propTypes = {
     user: PropTypes.object,
@@ -152,14 +153,14 @@ function EditProfile(props) {
                                 {/* breadcrumb */}
                                 <ul className="breadcrumb font-weight-bold p-0 my-2 font-size-sm">
                                     <li className="breadcrumb-item">
-                                        <a href="homepage.html" className="text-muted">
+                                        <Link to="/home" className="text-muted">
                                             Trang chủ
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="breadcrumb-item active">
-                                        <a href="profile.html" className="text-muted">
+                                        <Link to="/profile" className="text-muted">
                                             Xem hồ sơ
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -197,15 +198,30 @@ function EditProfile(props) {
                                             }}
                                         >
                                             <div className="image-input-wrapper" />
-                                            <label className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow">
+                                            <label
+                                                className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                                data-action="change"
+                                                data-toggle="tooltip"
+                                                data-original-title="Change avatar"
+                                            >
                                                 <i className="fa fa-pen icon-sm text-muted" />
                                                 <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" />
                                                 <input type="hidden" name="profile_avatar_remove" />
                                             </label>
-                                            <span className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow">
+                                            <span
+                                                className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                                data-action="cancel"
+                                                data-toggle="tooltip"
+                                                title="Cancel avatar"
+                                            >
                                                 <i className="fas fa-times text-muted" />
                                             </span>
-                                            <span className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow">
+                                            <span
+                                                className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                                data-action="remove"
+                                                data-toggle="tooltip"
+                                                title="Remove avatar"
+                                            >
                                                 <i className="fas fa-times text-muted" />
                                             </span>
                                         </div>

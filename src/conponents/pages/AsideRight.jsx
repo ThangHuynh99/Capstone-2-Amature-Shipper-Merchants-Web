@@ -73,13 +73,10 @@ function AsideRight(props) {
                                     <i className="fad fa-user-circle mr-1" />
                                     Xem hồ sơ
                                 </Link>
-                                <a
-                                    href="change-pw.html"
-                                    className="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block"
-                                >
+                                <Link to="/changepw" className="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">
                                     <i className="fad fa-lock-alt mr-1" />
                                     Thay đổi mật khẩu
-                                </a>
+                                </Link>
                                 <Signout />
                             </div>
                         </div>

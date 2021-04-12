@@ -7,7 +7,9 @@ function AsideLeft(props) {
         <aside className="aside aside-left d-flex flex-column">
             <header className="d-flex flex-column align-items-center flex-column-auto py-9">
                 <div>
-                    <img src={TheNightOwl} alt="logo" width={48} />
+                    <Link to="/home">
+                        <img src={TheNightOwl} alt="logo" width={48} />
+                    </Link>
                 </div>
             </header>
             <nav className="d-flex flex-column align-items-center flex-column-fluid pb-10 scroll ps">
@@ -18,23 +20,23 @@ function AsideLeft(props) {
                         </Link>
                     </li>
                     <li className="nav-item mb-2">
-                        <a href="chat.html" className="nav-link btn btn-icon btn-lg btn-borderless">
+                        <Link to="#" className="nav-link btn btn-icon btn-lg btn-borderless">
                             <i className="fad fa-comments-alt" />
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav-item mb-2">
-                        <a href="statistic.html" className="nav-link btn btn-icon btn-lg btn-borderless">
+                        <Link to="#" className="nav-link btn btn-icon btn-lg btn-borderless">
                             <i className="fad fa-chart-pie" />
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </nav>
             <footer className="d-flex flex-column align-items-center flex-column-auto py-8">
-                <a href="#" className="nav-link btn btn-icon btn-lg btn-borderless">
+                <Link to="#" className="nav-link btn btn-icon btn-lg btn-borderless">
                     <span>
                         <i className="fad fa-question-circle" />
                     </span>
-                </a>
+                </Link>
             </footer>
         </aside>
     );

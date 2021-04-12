@@ -58,7 +58,7 @@ function Header(props) {
                         </div>
 
                         <div className="d-flex align-items-center py-3 py-lg-2">
-                            <Link to="#" className="btn btn-icon btn-light h-40px w-40px">
+                            <Link to="/post-order" className="btn btn-icon btn-light h-40px w-40px">
                                 <i className="fad fa-file-alt pallette-purple"></i>
                             </Link>
                         </div>
