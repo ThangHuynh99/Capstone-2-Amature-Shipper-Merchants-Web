@@ -17,7 +17,7 @@ MainPostOrder.defaultProps = {
 function MainPostOrder(props) {
     const { postOrder } = props;
 
-    const dateTime = moment().format();
+    const dateTime = moment().format('X');
 
     const idPOST = random.generate(10) + random.generate(10);
     const idChat = random.generate(10) + random.generate(10);

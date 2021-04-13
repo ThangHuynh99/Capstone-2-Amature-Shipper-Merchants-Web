@@ -26,8 +26,10 @@ function MainHomePage(props) {
         // get from-now for this date
         var fromNow = moment(date).fromNow();
 
+        var converDate = moment.unix(date);
+
         // ensure the date is displayed with today and yesterday
-        return moment(date).calendar(null, {
+        return moment(converDate).calendar(null, {
             lastDay: '[Hôm qua,] LT',
             sameDay: '[Hôm nay,] LT',
             nextDay: '[Ngày mai,] LT',
