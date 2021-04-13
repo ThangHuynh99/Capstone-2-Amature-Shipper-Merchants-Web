@@ -41,7 +41,6 @@ function PostOrder(props) {
                 id_post: dataPostOrder.idPost,
                 id_shop: currentUser.uid,
                 status: "0",
-                id_post: dataPostOrder.idPost,
                 noi_giao: dataPostOrder.noi_giao,
                 noi_nhan: userInfor.address,
                 ghi_chu: dataPostOrder.ghi_chu,
@@ -79,7 +78,6 @@ function PostOrder(props) {
                     .then((doc) => {
                         if (doc.exists) {
                             setUserInfor(
-                                
                                 doc.data()
                                 );
                         } else {

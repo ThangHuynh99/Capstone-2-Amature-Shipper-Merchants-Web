@@ -3,30 +3,35 @@ import PropTypes from "prop-types";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import InProcessing from "../labels/InProcessing";
+import Picked from "../labels/Picked"
+import Completed from '../labels/Completed'
+import Cancelled from '../labels/Cancelled'
 
 MainHomePage.propTypes = {
     datas: PropTypes.object,
-    onClick: PropTypes.func,
+    ChangeOrderStatus: PropTypes.func,
 };
 
 MainHomePage.defaultProps = {
     datas: null,
-    onClick: null,
+    ChangeOrderStatus: null,
 };
 
 function MainHomePage(props) {
-    const { datas } = props;
+    const { datas, ChangeOrderStatus } = props;
 
-    console.log(datas);
-
-    function handleClick() {}
+    function handleChangeStatus(data) {
+        if(ChangeOrderStatus){
+            ChangeOrderStatus(data)
+        }
+    }
 
     function showOrder() {
         let items = [];
         if (datas) {
             Object.values(datas).map((values, index) => {
                 items.push(
-                    <div onClick={handleClick}>
+                    <div >
                         <div className="d-flex align-items-start">
                             <span className="bullet bullet-bar bg-orange align-self-stretch" />
                             <div className="d-flex flex-column flex-grow-1 ml-4">
@@ -65,7 +70,10 @@ function MainHomePage(props) {
                                         >
                                             {values.noi_giao}
                                         </address>
-                                        <InProcessing />
+                                        {values.status == "1" &&  <Picked />}
+                                        {values.status == "0" &&  <InProcessing />}
+                                        {values.status == "2" &&  <Completed />}
+                                        {values.status == "3" &&  <Cancelled />}
                                     </div>
                                 </section>
                             </div>
@@ -82,7 +90,7 @@ function MainHomePage(props) {
 
     return (
         <main className="d-flex flex-column flex-row-fluid wrapper">
-            <Header />
+            <Header ChangeOrderStatus={handleChangeStatus} />
             <section className="d-flex flex-column flex-row-fluid container">
                 <div className="card card-custom card-bottom">
                     <header className="card-header border-0">

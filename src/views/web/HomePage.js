@@ -14,7 +14,10 @@ function HomePage() {
         phone: "",
         address: ""
     })
-    const [status, setStatus] = useState('');
+
+    const [transaction, setTransaction] = useState({
+
+    })
     const [data, setData] = useState(
         {
             id_post: "",
@@ -29,7 +32,7 @@ function HomePage() {
         }
     );
 
-  
+    //fetch user infor
     useEffect(() => {
         async function fetchUserInfor() {
             try {
@@ -39,14 +42,24 @@ function HomePage() {
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
-                             setInput(
-                                 doc.data()
-                             );
+                            setInput(
+                                doc.data()
+                            );
                         } else {
                             console.log("No such document!");
                         }
-                    });
+                    })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchUserInfor();
+    }, []);
 
+    //fetch data post order
+    useEffect(() => {
+        async function fetchOrder() {
+            try {
                 await realtime.ref("OrderStatus/" + id).on('value', (snapshot) => {
                     setData(snapshot.val())
                     console.log(snapshot.val())
@@ -55,15 +68,42 @@ function HomePage() {
                 console.log(error);
             }
         }
-        fetchUserInfor();
-    }, []);
+        fetchOrder()
+    }, [])
 
-  
+    //thay đổi view đơn theo trạng thái.
+    function ChangeStatus(data) {
+        if (data != "") {
+            async function FetchOrderByStatus() {
+                try {
+                    await realtime.ref('/OrderStatus/' + id).orderByChild('status').equalTo(data).on('value', (snapshot) => {
+                        setData(snapshot.val())
+                        console.log(snapshot.val())
+                    })
+                } catch (e) {
+                    console.log(e)
+                }
+            }
+            FetchOrderByStatus()
+        } else {
+            async function fetchOrder() {
+                try {
+                    await realtime.ref("OrderStatus/" + id).on('value', (snapshot) => {
+                        setData(snapshot.val())
+                        console.log(snapshot.val())
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            fetchOrder()
+        }
+    }
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
-                <MainHomePage datas={data} />
+                <MainHomePage datas={data} ChangeOrderStatus={ChangeStatus} />
                 <AsideRight name={input.fullname} />
             </div>
         </div>

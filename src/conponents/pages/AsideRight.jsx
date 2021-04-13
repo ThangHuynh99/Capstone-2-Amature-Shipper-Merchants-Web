@@ -17,35 +17,7 @@ AsideRight.defaultProps = {
 };
 
 function AsideRight(props) {
-    const { currentUser } = useAuth();
-
-    const [input, setInput] = useState({
-        fullname: '',
-        phone: '',
-        address: '',
-    });
-
-    useEffect(() => {
-        async function fetchUserInfor() {
-            try {
-                await db
-                    .collection('ShopProfile')
-                    .doc(currentUser.uid)
-                    .get()
-                    .then((doc) => {
-                        if (doc.exists) {
-                            setInput(doc.data());
-                            console.log(input);
-                        } else {
-                            console.log('No such document!');
-                        }
-                    });
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchUserInfor();
-    }, []);
+    const {name} = props
 
     return (
         <aside className="sidebar d-flex flex-row-auto flex-column">
@@ -65,7 +37,7 @@ function AsideRight(props) {
                                 />
                                 <i className="symbol-badge symbol-badge-bottom bg-success" />
                             </div>
-                            <h4 className="font-weight-bold my-2">{input.fullname}</h4>
+                            <h4 className="font-weight-bold my-2">{name}</h4>
                             <div className="text-muted mb-2">Shop Owner</div>
                             <span className="label label-light-warning label-inline font-weight-bold label-lg">Hoạt động</span>
                             <div className="mt-10">
