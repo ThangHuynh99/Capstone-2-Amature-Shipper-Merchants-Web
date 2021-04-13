@@ -6,6 +6,8 @@ import InProcessing from '../labels/InProcessing';
 import Picked from '../labels/Picked';
 import Completed from '../labels/Completed';
 import Cancelled from '../labels/Cancelled';
+import Moment from 'react-moment';
+import moment from 'moment';
 
 MainHomePage.propTypes = {
     datas: PropTypes.object,
@@ -19,6 +21,22 @@ MainHomePage.defaultProps = {
 
 function MainHomePage(props) {
     const { datas, ChangeOrderStatus } = props;
+
+    const dateToFromNowDaily = (date) => {
+        // get from-now for this date
+        var fromNow = moment(date).fromNow();
+
+        // ensure the date is displayed with today and yesterday
+        return moment(date).calendar(null, {
+            lastDay: '[Hôm qua,] LT',
+            sameDay: '[Hôm nay,] LT',
+            nextDay: '[Ngày mai,] LT',
+            sameElse: function () {
+                return 'HH:mm, DD/MM/YYYY';
+                // return '[' + fromNow + ']';
+            },
+        });
+    };
 
     function handleChangeStatus(data) {
         if (ChangeOrderStatus) {
@@ -37,7 +55,10 @@ function MainHomePage(props) {
                             <div className="d-flex flex-column flex-grow-1 ml-4">
                                 <header className="card-title content">
                                     <span key={index}>{values.id_post}</span>
-                                    <span key={index}>{values.thoi_gian}</span>
+                                    <span key={index}>
+                                        {dateToFromNowDaily(values.thoi_gian)}
+                                        {/* <Moment format="DD/MM/YYYY">{values.thoi_gian}</Moment> */}
+                                    </span>
                                 </header>
                                 <section className="card-info content">
                                     <p>
@@ -45,7 +66,7 @@ function MainHomePage(props) {
                                             {values.phi_giao} - Tiền mặt
                                         </span>
                                         <br />
-                                        <span key={index}>{values.ten_nguoi_gui}</span> - <span key={index}>{values.sdt_nguoi_gui}</span>
+                                        <span key={index}>{values.ten_nguoi_nhan}</span> - <span key={index}>{values.sdt_nguoi_nhan}</span>
                                     </p>
                                     <span className="delivery">Giao hàng tới</span>
                                     <div className="d-flex align-items-center justify-content-between">
