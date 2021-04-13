@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from "react";
-import "react-bootstrap";
-import { useAuth } from "../../context/AuthContext";
-import AsideLeft from "../../conponents/pages/AsideLeft";
-import AsideRight from "../../conponents/pages/AsideRight";
-import MainProfile from "../../conponents/pages/MainProfile";
-import EditProfile from "../../conponents/pages/EditProfile.jsx";
-import { db } from "../../firebase";
+import React, { useEffect, useState } from 'react';
+import 'react-bootstrap';
+import AsideLeft from '../../conponents/pages/AsideLeft';
+import AsideRight from '../../conponents/pages/AsideRight';
+import EditProfile from '../../conponents/pages/EditProfile.jsx';
+import MainProfile from '../../conponents/pages/MainProfile';
+import { useAuth } from '../../context/AuthContext';
+import { db } from '../../firebase';
 
 export default function Profile() {
     const { currentUser } = useAuth();
@@ -15,12 +15,12 @@ export default function Profile() {
     const [userInfor, setUserInfor] = useState({
         email: currentUser.email,
         uid: currentUser.uid,
-        error: "",
-        alert: "",
+        error: '',
+        alert: '',
         input: {
-            fullname: "",
-            phone: "",
-            address: "",
+            fullname: '',
+            phone: '',
+            address: '',
         },
     });
 
@@ -30,25 +30,22 @@ export default function Profile() {
     }
 
     function changeToProfile() {
-        setIsShowEdit(false)
-        setIsShowProfile(true)
+        setIsShowEdit(false);
+        setIsShowProfile(true);
         setUserInfor({
             ...userInfor,
-            error: "edit success !",
-            alert: "green",
+            error: 'edit success !',
+            alert: 'green',
         });
     }
 
-   async function editProfile(fullName, phone, address){
+    async function editProfile(fullName, phone, address) {
         try {
-            await db
-                .collection('ShopProfile')
-                .doc(userInfor.uid)
-                .set({
-                    fullname: fullName,
-                    phone: phone,
-                    address: address,
-                });
+            await db.collection('ShopProfile').doc(userInfor.uid).set({
+                fullname: fullName,
+                phone: phone,
+                address: address,
+            });
             changeToProfile();
         } catch {
             console.log('error');
@@ -59,18 +56,18 @@ export default function Profile() {
         async function fetchUserInfor() {
             try {
                 await db
-                    .collection("ShopProfile")
+                    .collection('ShopProfile')
                     .doc(userInfor.uid)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
                             setUserInfor({
                                 ...userInfor,
-                                input: doc.data()
+                                input: doc.data(),
                             });
                             console.log(setUserInfor.input);
                         } else {
-                            console.log("No such document!");
+                            console.log('No such document!');
                         }
                     });
             } catch (error) {
@@ -85,7 +82,7 @@ export default function Profile() {
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
                 {isShowProfile && <MainProfile onChange={changeToEdit} user={userInfor} />}
-                {isShowEdit && <EditProfile user={userInfor}  edit={editProfile}/>}
+                {isShowEdit && <EditProfile user={userInfor} edit={editProfile} />}
                 <AsideRight />
             </div>
         </div>

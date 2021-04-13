@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
-import Header from '../common/Header';
+import React from 'react';
 import Footer from '../common/Footer';
+import Header from '../common/Header';
+import Cancelled from '../labels/Cancelled';
+import Completed from '../labels/Completed';
 import InProcessing from '../labels/InProcessing';
 import Picked from '../labels/Picked';
-import Completed from '../labels/Completed';
-import Cancelled from '../labels/Cancelled';
-import Moment from 'react-moment';
-import moment from 'moment';
 
 MainHomePage.propTypes = {
     datas: PropTypes.object,
@@ -23,9 +22,6 @@ function MainHomePage(props) {
     const { datas, ChangeOrderStatus } = props;
 
     const dateToFromNowDaily = (date) => {
-        // get from-now for this date
-        var fromNow = moment(date).fromNow();
-
         var converDate = moment.unix(date);
 
         // ensure the date is displayed with today and yesterday
@@ -49,36 +45,34 @@ function MainHomePage(props) {
     function showOrder() {
         let items = [];
         if (datas) {
-            Object.values(datas).map((values, index) => {
+            Object.values(datas).map((data, index) => {
                 items.push(
-                    <div>
+                    <div key={index}>
                         <div className="d-flex align-items-start">
                             <span className="bullet bullet-bar bg-orange align-self-stretch" />
                             <div className="d-flex flex-column flex-grow-1 ml-4">
                                 <header className="card-title content">
-                                    <span key={index}>{values.id_post}</span>
-                                    <span key={index}>
-                                        {dateToFromNowDaily(values.thoi_gian)}
-                                        {/* <Moment format="DD/MM/YYYY">{values.thoi_gian}</Moment> */}
+                                    <span>{data.id_post}</span>
+                                    <span>
+                                        {dateToFromNowDaily(data.thoi_gian)}
+                                        {/* <Moment format="DD/MM/YYYY">{data.thoi_gian}</Moment> */}
                                     </span>
                                 </header>
                                 <section className="card-info content">
                                     <p>
-                                        <span className="payment" key={index}>
-                                            {values.phi_giao} - Tiền mặt
-                                        </span>
+                                        <span className="payment">{data.phi_giao} - Tiền mặt</span>
                                         <br />
-                                        <span key={index}>{values.ten_nguoi_nhan}</span> - <span key={index}>{values.sdt_nguoi_nhan}</span>
+                                        <span>
+                                            {data.ten_nguoi_nhan} - {data.sdt_nguoi_nhan}
+                                        </span>
                                     </p>
                                     <span className="delivery">Giao hàng tới</span>
                                     <div className="d-flex align-items-center justify-content-between">
-                                        <address className="mb-0 pl-0 col-9" key={index}>
-                                            {values.noi_giao}
-                                        </address>
-                                        {values.status == '1' && <Picked />}
-                                        {values.status == '0' && <InProcessing />}
-                                        {values.status == '2' && <Completed />}
-                                        {values.status == '3' && <Cancelled />}
+                                        <address className="mb-0 pl-0 col-9">{data.noi_giao}</address>
+                                        {data.status == '1' && <Picked />}
+                                        {data.status == '0' && <InProcessing />}
+                                        {data.status == '2' && <Completed />}
+                                        {data.status == '3' && <Cancelled />}
                                     </div>
                                 </section>
                             </div>
