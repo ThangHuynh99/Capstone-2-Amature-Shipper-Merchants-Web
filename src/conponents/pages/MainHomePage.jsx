@@ -40,6 +40,7 @@ function MainHomePage(props) {
 
     const handleFilterStatus = (status) => {
         setFilteredStatus(status);
+        status === 'all' && setTitleStatus('tất cả');
         status === '0' && setTitleStatus('đang xử lý');
         status === '1' && setTitleStatus('đã nhận');
         status === '2' && setTitleStatus('hoàn thành');
