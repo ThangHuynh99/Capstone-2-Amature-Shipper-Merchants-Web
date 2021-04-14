@@ -18,6 +18,9 @@ function MainPostOrder(props) {
     const { postOrder } = props;
 
     const dateTime = moment().format('X');
+    // console.log(dateTime);
+    // const test = moment().subtract(1, 'day').format('X');
+    // console.log(test);
 
     const idPOST = random.generate(10) + random.generate(10);
     const idChat = random.generate(10) + random.generate(10);

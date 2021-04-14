@@ -4,7 +4,7 @@ a:hover {
 }
 
 body {
-    font-family: "Lexend", sans-serif;
+    font-family: 'Lexend', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -22,7 +22,7 @@ body {
 
 .sidebar {
     /* background: linear-gradient(90deg, #ffecd2 0%, #aaa 100%); */
-    background-color: #F6F7F9;
+    background-color: #f6f7f9;
 }
 
 .breadcrumb {
@@ -42,7 +42,7 @@ body {
     display: inline-block;
     padding-right: 0.5rem;
     color: #adb5bd;
-    content: ">";
+    content: '>';
 }
 
 .breadcrumb-item + .breadcrumb-item:hover::before {
@@ -98,14 +98,14 @@ body {
     background: linear-gradient(90deg, #a18cd1 0%, #fbc2eb 100%);
     border-radius: 3rem;
     padding: 0.75rem 1rem;
-    color: #fff!important;
+    color: #fff !important;
 }
 
-.menu-item > .menu-link > .menu:active {
+.menu-item > .menu-link > .menu.active {
     background: linear-gradient(90deg, #a18cd1 0%, #fbc2eb 100%);
     border-radius: 3rem;
     padding: 0.75rem 1rem;
-    color: #fff!important;
+    color: #fff !important;
 }
 
 .menu-recent {
