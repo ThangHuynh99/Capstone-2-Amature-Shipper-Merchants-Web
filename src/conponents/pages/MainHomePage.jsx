@@ -24,13 +24,13 @@ function MainHomePage(props) {
     const dateRef = useRef();
 
     const dateToFromNowDaily = (date) => {
-        var converDate = moment.unix(date);
+        const converDate = moment.unix(date);
 
         // ensure the date is displayed with today and yesterday
         return moment(converDate).calendar(null, {
-            lastDay: '[Hôm qua,] LT',
-            sameDay: '[Hôm nay,] LT',
-            nextDay: '[Ngày mai,] LT',
+            lastDay: '[Hôm qua,] HH:mm',
+            sameDay: '[Hôm nay,] HH:mm',
+            nextDay: '[Ngày mai,] HH:mm',
             sameElse: function () {
                 return 'HH:mm, DD/MM/YYYY';
                 // return '[' + fromNow + ']';
