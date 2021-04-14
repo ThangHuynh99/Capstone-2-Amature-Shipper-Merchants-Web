@@ -22,7 +22,7 @@ function MainHomePage(props) {
     const { datas, ChangeOrderStatus } = props;
 
     const dateToFromNowDaily = (date) => {
-        var converDate = moment.unix(date);
+        const converDate = moment.unix(date);
 
         // ensure the date is displayed with today and yesterday
         return moment(converDate).calendar(null, {
