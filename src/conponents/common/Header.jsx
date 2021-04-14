@@ -30,7 +30,7 @@ function Header(props) {
                         <div className="d-none d-xl-block">
                             <ul className="menu-nav">
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/home" className="menu-link">
                                         <span
                                             className="menu menu-recent"
                                             value=""
@@ -41,7 +41,7 @@ function Header(props) {
                                     </Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/home" className="menu-link">
                                         <span
                                             className="menu menu-in-progress"
                                             value="1"
@@ -52,7 +52,7 @@ function Header(props) {
                                     </Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/home" className="menu-link">
                                         <span
                                             className="menu menu-picked"
                                             value="2"
@@ -63,7 +63,7 @@ function Header(props) {
                                     </Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/home" className="menu-link">
                                         <span
                                             className="menu menu-completed"
                                             value="3"
@@ -74,7 +74,7 @@ function Header(props) {
                                     </Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/home" className="menu-link">
                                         <span
                                             className="menu menu-canceled"
                                             value="4"
@@ -89,7 +89,7 @@ function Header(props) {
 
                         <div className="d-flex align-items-center d-block d-xl-none d-lg-block py-3 py-lg-2">
                             <Link
-                                to="#"
+                                to="/home"
                                 className="btn btn-icon btn-light h-40px w-40px mr-3"
                             >
                                 <i
@@ -99,7 +99,7 @@ function Header(props) {
                                 ></i>
                             </Link>
                             <Link
-                                to="#"
+                                to="/home"
                                 className="btn btn-icon btn-light h-40px w-40px mr-3"
                             >
                                 <i
@@ -109,7 +109,7 @@ function Header(props) {
                                 ></i>
                             </Link>
                             <Link
-                                to="#"
+                                to="/home"
                                 className="btn btn-icon btn-light h-40px w-40px mr-3"
                             >
                                 <i
@@ -119,7 +119,7 @@ function Header(props) {
                                 ></i>
                             </Link>
                             <Link
-                                to="#"
+                                to="/home"
                                 className="btn btn-icon btn-light h-40px w-40px mr-3"
                             >
                                 <i
@@ -129,10 +129,11 @@ function Header(props) {
                                 ></i>
                             </Link>
                             <Link
-                                to="#"
+                                to="/home"
                                 className="btn btn-icon btn-light h-40px w-40px mr-3"
                             >
                                 <i
+                            
                                     className="fas fa-times-circle text-danger-2"
                                     value="4"
                                     onClick={() => handleClick("3")}

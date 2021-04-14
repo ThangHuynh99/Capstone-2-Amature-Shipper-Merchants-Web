@@ -86,7 +86,7 @@ export default function Profile() {
                 <AsideLeft />
                 {isShowProfile && <MainProfile onChange={changeToEdit} user={userInfor} />}
                 {isShowEdit && <EditProfile user={userInfor}  edit={editProfile}/>}
-                <AsideRight />
+                <AsideRight name={userInfor.input.fullname} />
             </div>
         </div>
     );

@@ -60,7 +60,7 @@ function HomePage() {
     useEffect(() => {
         async function fetchOrder() {
             try {
-                await realtime.ref("OrderStatus/" + id).on('value', (snapshot) => {
+                await realtime.ref("OrderStatus/" + id).orderByChild("thoi_gian").on('value', (snapshot) => {
                     setData(snapshot.val())
                     console.log(snapshot.val())
                 })
@@ -88,7 +88,7 @@ function HomePage() {
         } else {
             async function fetchOrder() {
                 try {
-                    await realtime.ref("OrderStatus/" + id).on('value', (snapshot) => {
+                    await realtime.ref("OrderStatus/" + id).orderByChild("thoi_gian").on('value', (snapshot) => {
                         setData(snapshot.val())
                         console.log(snapshot.val())
                     })

@@ -58,7 +58,8 @@ function PostOrder(props) {
             await realtime.ref("Transaction/" + dataPostOrder.idPost).set({
                 id_post: dataPostOrder.idPost,
                 id_shipper: '',
-                id_roomchat: dataPostOrder.id_roomchat
+                id_roomchat: dataPostOrder.id_roomchat,
+                status: "0"
             });
             
             //tạo bảng chatroom
@@ -96,7 +97,7 @@ function PostOrder(props) {
             <section className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
                 <MainPostOrder postOrder={PostOrder}/>
-                <AsideRight />
+                <AsideRight name={userInfor.fullname}/>
             </section>
         </div>
     );

@@ -132,11 +132,11 @@ function MainPostOrder(props) {
         const dataPostOrder = {
             idPost: idPOST,
             noi_giao:  shipAddressRef.current.value +
-            "," +
+            ", " +
             shipWardRef.current.value +
-            "," +
+            ", " +
             shipDistrcitRef.current.value +
-            "," +
+            ", " +
             "Thành phố Đà Nẵng",
             ghi_chu: noteRef.current.value,
             km: "3km",
