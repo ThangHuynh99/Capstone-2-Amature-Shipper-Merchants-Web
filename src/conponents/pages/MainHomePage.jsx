@@ -26,9 +26,9 @@ function MainHomePage(props) {
 
         // ensure the date is displayed with today and yesterday
         return moment(converDate).calendar(null, {
-            lastDay: '[Hôm qua,] LT',
-            sameDay: '[Hôm nay,] LT',
-            nextDay: '[Ngày mai,] LT',
+            lastDay: '[Hôm qua,] HH:mm',
+            sameDay: '[Hôm nay,] HH:mm',
+            nextDay: '[Ngày mai,] HH:mm',
             sameElse: function () {
                 return 'HH:mm, DD/MM/YYYY';
                 // return '[' + fromNow + ']';
