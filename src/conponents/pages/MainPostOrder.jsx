@@ -1,31 +1,26 @@
-import React, { useState, useRef } from "react";
-import PropTypes from "prop-types";
-import { useHistory } from "react-router";
-import Header from "../common/Header";
-import Footer from "../common/Footer";
-import random from "randomstring";
+import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import Header from '../common/Header';
+import Footer from '../common/Footer';
+import random from 'randomstring';
+import moment from 'moment';
 
 MainPostOrder.propTypes = {
-    postOrder: PropTypes.func
+    postOrder: PropTypes.func,
 };
 
 MainPostOrder.defaultProps = {
-    postOrder: null
+    postOrder: null,
 };
 
 function MainPostOrder(props) {
     const { postOrder } = props;
-    var today = new Date();
-    var date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = time + " " + date;
+
+   
+    const dateTime = moment().format('X');
 
     const idPOST = random.generate(10) + random.generate(10);
     const idChat = random.generate(10) + random.generate(10);
-
-    const [ngayTao, setNgayTao] = useState(dateTime);
-
-    const history = useHistory();
 
     const customerRef = useRef();
     const numberRef = useRef();
@@ -39,57 +34,57 @@ function MainPostOrder(props) {
     const [district, setDistrict] = useState();
 
     const dataList = {
-        "Quận Cẩm Lệ": ["Phường Hòa An", "Phường Hòa Phát", "Phường Hòa Thọ Đông", "Phường Hòa Thọ Tây", "Phường Hòa Xuân", "Phường Khuê Trung"],
-        "Quận Hải Châu": [
-            "Phường Bình Hiên",
-            "Phường Bình Thuận",
-            "Phường Hải Châu 1",
-            "Phường Hải Châu 2",
-            "Phường Hòa Cương Bắc",
-            "Phường Hòa Cường Nam",
-            "Phường Hòa Thuận Đông",
-            "Phường Hòa Thuận Tây",
-            "Phường Nam Dương",
-            "Phường Phước Ninh",
-            "Phường Thạch Thang",
-            "Phường Thạnh Bình",
-            "Phường Thuận Phước",
+        'Quận Cẩm Lệ': ['Phường Hòa An', 'Phường Hòa Phát', 'Phường Hòa Thọ Đông', 'Phường Hòa Thọ Tây', 'Phường Hòa Xuân', 'Phường Khuê Trung'],
+        'Quận Hải Châu': [
+            'Phường Bình Hiên',
+            'Phường Bình Thuận',
+            'Phường Hải Châu 1',
+            'Phường Hải Châu 2',
+            'Phường Hòa Cương Bắc',
+            'Phường Hòa Cường Nam',
+            'Phường Hòa Thuận Đông',
+            'Phường Hòa Thuận Tây',
+            'Phường Nam Dương',
+            'Phường Phước Ninh',
+            'Phường Thạch Thang',
+            'Phường Thạnh Bình',
+            'Phường Thuận Phước',
         ],
-        "Quận Liên Chiểu": ["Phường Hòa Hiệp Bắc", "Phường Hòa Hiệp Nam", "Phường Hòa Khánh Bắc", "Phường Hòa Khánh Nam", "Phường Hòa Minh"],
-        "Quận Ngũ Hành Sơn": ["Phường Hòa Hải", "Phường Hòa Quý", "Phường Khuê Mỹ", "Phường Mỹ An"],
-        "Quận Sơn Trà": [
-            "Phường An Hải Bắc",
-            "Phường An Hải Đông",
-            "Phường An Hải Tây",
-            "Phường Mân Thái",
-            "Phường Nại Hiên Đông",
-            "Phường Phước Mỹ",
-            "Phường Thọ Quang",
+        'Quận Liên Chiểu': ['Phường Hòa Hiệp Bắc', 'Phường Hòa Hiệp Nam', 'Phường Hòa Khánh Bắc', 'Phường Hòa Khánh Nam', 'Phường Hòa Minh'],
+        'Quận Ngũ Hành Sơn': ['Phường Hòa Hải', 'Phường Hòa Quý', 'Phường Khuê Mỹ', 'Phường Mỹ An'],
+        'Quận Sơn Trà': [
+            'Phường An Hải Bắc',
+            'Phường An Hải Đông',
+            'Phường An Hải Tây',
+            'Phường Mân Thái',
+            'Phường Nại Hiên Đông',
+            'Phường Phước Mỹ',
+            'Phường Thọ Quang',
         ],
-        "Quận Thanh Khê": [
-            "Phường An Khê",
-            "Phường Chính Gián",
-            "Phường Hòa Khê",
-            "Phường Tam Thuận",
-            "Phường Tân Chính",
-            "Phường Thạc Gián",
-            "Phường Thanh Khê Đông",
-            "Phường Thanh Khê Tây",
-            "Phường Vĩnh Trung",
-            "Phường Xuân Hà",
+        'Quận Thanh Khê': [
+            'Phường An Khê',
+            'Phường Chính Gián',
+            'Phường Hòa Khê',
+            'Phường Tam Thuận',
+            'Phường Tân Chính',
+            'Phường Thạc Gián',
+            'Phường Thanh Khê Đông',
+            'Phường Thanh Khê Tây',
+            'Phường Vĩnh Trung',
+            'Phường Xuân Hà',
         ],
-        "Huyện Hòa Vang": [
-            "Xã Hòa Bắc",
-            "Xã Hòa Châu",
-            "Xã Hòa Khương",
-            "Xã Hòa Liên",
-            "Xã Hòa Nhơn",
-            "Xã Hòa Ninh",
-            "Xã Hòa Phong",
-            "Xã Hòa Phú",
-            "Xã Hòa Phước",
-            "Xã Hòa Sơn",
-            "Xã Hòa Tiến",
+        'Huyện Hòa Vang': [
+            'Xã Hòa Bắc',
+            'Xã Hòa Châu',
+            'Xã Hòa Khương',
+            'Xã Hòa Liên',
+            'Xã Hòa Nhơn',
+            'Xã Hòa Ninh',
+            'Xã Hòa Phong',
+            'Xã Hòa Phú',
+            'Xã Hòa Phước',
+            'Xã Hòa Sơn',
+            'Xã Hòa Tiến',
         ],
     };
 
@@ -125,30 +120,24 @@ function MainPostOrder(props) {
         }
     }
 
-  
     //handle submitForm
     function handleSubmit(e) {
         e.preventDefault();
         const dataPostOrder = {
             idPost: idPOST,
-            noi_giao:  shipAddressRef.current.value +
-            ", " +
-            shipWardRef.current.value +
-            ", " +
-            shipDistrcitRef.current.value +
-            ", " +
-            "Thành phố Đà Nẵng",
+            noi_giao:
+                shipAddressRef.current.value + ', ' + shipWardRef.current.value + ', ' + shipDistrcitRef.current.value + ', Thành phố Đà Nẵng',
             ghi_chu: noteRef.current.value,
-            km: "3km",
-            thoi_gian: ngayTao,
+            km: '3km',
+            thoi_gian: dateTime,
             sdt_nguoi_nhan: numberRef.current.value,
             ten_nguoi_nhan: customerRef.current.value,
             phi_giao: shipFeeRef.current.value,
             phi_ung: depositFeeRef.current.value,
-            id_roomchat: idChat
-        }
-    
-        if(postOrder){
+            id_roomchat: idChat,
+        };
+
+        if (postOrder) {
             postOrder(dataPostOrder);
         }
     }
@@ -300,7 +289,12 @@ function MainPostOrder(props) {
                                         Quận/Huyện
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" id="district" onChange={handleDistrictChange} ref={shipDistrcitRef}>
+                                        <select
+                                            className="form-control form-control-lg"
+                                            id="district"
+                                            onChange={handleDistrictChange}
+                                            ref={shipDistrcitRef}
+                                        >
                                             <option value="">Chọn Quận/Huyện</option>
                                             {districtList()}
                                         </select>
@@ -332,7 +326,7 @@ function MainPostOrder(props) {
                                             maxLength={50}
                                             id="address"
                                             placeholder="Số nhà, tên đường"
-                                            ref = {shipAddressRef}
+                                            ref={shipAddressRef}
                                         />
                                     </div>
                                 </div>

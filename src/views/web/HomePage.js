@@ -4,6 +4,7 @@ import AsideRight from "../../conponents/pages/AsideRight";
 import AsideLeft from "../../conponents/pages/AsideLeft";
 import MainHomePage from "../../conponents/pages/MainHomePage";
 import { useAuth } from "../../context/AuthContext";
+import moment from 'moment';
 
 function HomePage() {
     const { currentUser } = useAuth();
@@ -14,10 +15,10 @@ function HomePage() {
         phone: "",
         address: ""
     })
-
     const [transaction, setTransaction] = useState({
 
     })
+
     const [data, setData] = useState(
         {
             id_post: "",
@@ -72,8 +73,11 @@ function HomePage() {
     }, [])
 
     //thay đổi view đơn theo trạng thái.
-    function ChangeStatus(data) {
-        if (data != "") {
+    function ChangeStatus(data, date) {
+
+        console.log("Start date " + moment().format('X'))
+        console.log("end date " +  moment().subtract(date, "days").format('X'))
+        if (data !== "") {
             async function FetchOrderByStatus() {
                 try {
                     await realtime.ref('/OrderStatus/' + id).orderByChild('status').equalTo(data).on('value', (snapshot) => {
@@ -99,6 +103,8 @@ function HomePage() {
             fetchOrder()
         }
     }
+
+
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">
