@@ -61,7 +61,7 @@ function HomePage() {
     useEffect(() => {
         async function fetchOrder() {
             try {
-                await realtime.ref("OrderStatus/" + id).orderByChild("thoi_gian").on('value', (snapshot) => {
+                await realtime.ref("OrderStatus/" + id).orderByChild("thoi_gian").startAfter(moment().subtract(1, "days").format('X')).on('value', (snapshot) => {
                     setData(snapshot.val())
                     console.log(snapshot.val())
                 })
@@ -71,36 +71,64 @@ function HomePage() {
         }
         fetchOrder()
     }, [])
+    console.log("end date " + moment().subtract(5, "days").format('X'))
 
     //thay đổi view đơn theo trạng thái.
     function ChangeStatus(data, date) {
-
-        console.log("Start date " + moment().format('X'))
-        console.log("end date " +  moment().subtract(date, "days").format('X'))
+        // console.log("Start date " + moment().format('X'))
+        // console.log("end date " +  moment().subtract(5, "days").format('X'))
         if (data !== "") {
-            async function FetchOrderByStatus() {
-                try {
-                    await realtime.ref('/OrderStatus/' + id).orderByChild('status').equalTo(data).on('value', (snapshot) => {
-                        setData(snapshot.val())
-                        console.log(snapshot.val())
-                    })
-                } catch (e) {
-                    console.log(e)
+            if (date) {
+                async function FetchOrderByStatus() {
+                    try {
+                        await realtime.ref('/OrderStatus/' + id).orderByChild('status').equalTo(data).orderByChild('thoi_gian').startAfter(moment().subtract(date, "days")).on('value', (snapshot) => {
+                            setData(snapshot.val())
+                            console.log(snapshot.val())
+                        })
+                    } catch (e) {
+                        console.log(e)
+                    }
                 }
+                FetchOrderByStatus()
+            } else {
+                async function FetchOrderByStatus() {
+                    try {
+                        await realtime.ref('/OrderStatus/' + id).orderByChild('status').equalTo(data).orderByChild('thoi_gian').startAfter(moment().subtract(1, "days")).on('value', (snapshot) => {
+                            setData(snapshot.val())
+                            console.log(snapshot.val())
+                        })
+                    } catch (e) {
+                        console.log(e)
+                    }
+                }
+                FetchOrderByStatus()
             }
-            FetchOrderByStatus()
         } else {
-            async function fetchOrder() {
-                try {
-                    await realtime.ref("OrderStatus/" + id).orderByChild("thoi_gian").on('value', (snapshot) => {
-                        setData(snapshot.val())
-                        console.log(snapshot.val())
-                    })
-                } catch (error) {
-                    console.log(error);
+            if (date) {
+                async function fetchOrder() {
+                    try {
+                        await realtime.ref("OrderStatus/" + id).orderByChild('thoi_gian').startAfter(moment().subtract(date, "days")).on('value', (snapshot) => {
+                            setData(snapshot.val())
+                            console.log(snapshot.val())
+                        })
+                    } catch (error) {
+                        console.log(error);
+                    }
                 }
+                fetchOrder()
+            } else {
+                async function fetchOrder() {
+                    try {
+                        await realtime.ref("OrderStatus/" + id).orderByChild('thoi_gian').startAfter(moment().subtract(1, "days")).on('value', (snapshot) => {
+                            setData(snapshot.val())
+                            console.log(snapshot.val())
+                        })
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                fetchOrder()
             }
-            fetchOrder()
         }
     }
 

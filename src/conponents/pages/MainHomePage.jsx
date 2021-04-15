@@ -39,9 +39,9 @@ function MainHomePage(props) {
     };
 
     function handleChangeStatus(data) {
-        
+        setFilterDate(dateRef.current.value)
+        console.log(filterDate)
         if (ChangeOrderStatus) {
-    
             ChangeOrderStatus(data);
         }
     }
@@ -110,24 +110,24 @@ function MainHomePage(props) {
                         <div className="card-title py-4">
                             <h3 className="card-label">
                                 <span className="d-block title">Danh sách đơn</span>
-                              {/* <span className="d-block text-time mt-2 font-size-sm">trong 24 giờ</span> */}
+                                <span className="d-block text-time mt-2 font-size-sm">trong 24 giờ</span>
                             </h3>
                         </div>
                         <div className="card-toolbar">
                             <ul className="nav nav-pills">
                                 <li className="nav-item">
                                     <a href="#tab1" className="nav-link py-2 px-4">
-                                        <span className="nav-text" value="30" ref={dateRef}>Tháng</span>
+                                        <span className="nav-text" value="30" ref={dateRef} onClick={handleChangeStatus}>Tháng</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a href="#tab2" className="nav-link py-2 px-4">
-                                        <span className="nav-text" value="7" ref={dateRef}>Tuần</span>
+                                    <span className="nav-text" value="7" ref={dateRef} onClick={handleChangeStatus}>Tuần</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a href="#tab3" className="nav-link py-2 px-4 active">
-                                        <span className="nav-text" value="1" ref={dateRef}>Ngày</span>
+                                        <span className="nav-text" value="1" ref={dateRef} onClick={handleChangeStatus}>Ngày</span>
                                     </a>
                                 </li>
                             </ul>
