@@ -4,17 +4,18 @@ import HeaderMobile from './HeaderMobile';
 import PropTypes from 'prop-types';
 
 Header.propTypes = {
-    ChangeOrderStatus: PropTypes.func,
+    onClickFilterStatus: PropTypes.func,
 };
 
 Header.defaultProps = {
-    ChangeOrderStatus: null,
+    onClickFilterStatus: null,
 };
 
 function Header(props) {
     const { onClickFilterStatus } = props;
 
     const handleFilterStatus = (status) => {
+        if (!onClickFilterStatus) return;
         onClickFilterStatus(status);
     };
 
