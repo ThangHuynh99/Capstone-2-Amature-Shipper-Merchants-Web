@@ -96,7 +96,7 @@ function MainHomePage(props) {
                                 <span className="bullet bullet-bar bg-orange align-self-stretch" />
                                 <div className="d-flex flex-column flex-grow-1 ml-4">
                                     <header className="card-title content">
-                                        <span>{data.id_post}</span>
+                                        <span>No.{data.id_post}</span>
                                         <span>
                                             {dateToFromNowDaily(data.thoi_gian)}
                                             {/* <Moment format="DD/MM/YYYY">{data.thoi_gian}</Moment> */}
