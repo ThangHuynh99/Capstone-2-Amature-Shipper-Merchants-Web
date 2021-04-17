@@ -10,6 +10,7 @@ import HomePage from '../views/web/HomePage';
 import ChangePw from './ChangePw';
 import PostOrder from '../views/web/PostOrder';
 import MapMain from '../views/web/MapGG';
+import Chat2 from '../views/web/Chat';
 
 function Application() {
     return (
@@ -23,6 +24,7 @@ function Application() {
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/forgotpw" component={ForgotPw} />
                     <Route exact path="/post-order" component={PostOrder} />
+                    <Route exact path="/chat" component={Chat2} />
                 </Switch>
             </AuthProvider>
             <Switch>
