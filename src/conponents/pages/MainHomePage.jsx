@@ -24,13 +24,11 @@ function MainHomePage(props) {
     const { datas } = props;
     const [filteredStatus, setFilteredStatus] = useState("all");
     const [titleStatus, setTitleStatus] = useState("tất cả");
-    const [modelIsOpen, setModelIsOpen] = useState("");
     const [dataModel, setDataModel] = useState({});
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const dateToFromNowDaily = (date) => {
         const convertDate = moment.unix(date);

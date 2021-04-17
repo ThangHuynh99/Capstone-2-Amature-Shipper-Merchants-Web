@@ -21,8 +21,18 @@ function MainPostOrder(props) {
     // const test = moment().subtract(1, 'day').format('X');
     // console.log(test);
 
-    const idPOST = random.generate(10) + random.generate(10);
-    const idChat = random.generate(10) + random.generate(10);
+    const idPOST =
+        moment().format('YYYYMMDD-HHmmssSSS') +
+        random.generate({
+            length: 3,
+            charset: 'numeric',
+        });
+    const idChat =
+        moment().format('YYYYMMDD-HHmmssSSS') +
+        random.generate({
+            length: 3,
+            charset: 'numeric',
+        });
 
     const customerRef = useRef();
     const numberRef = useRef();

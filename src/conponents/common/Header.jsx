@@ -15,9 +15,8 @@ function Header(props) {
     const { onClickFilterStatus } = props;
     
     const handleFilterStatus = (status) => {
-        if(onClickFilterStatus){
-            onClickFilterStatus(status);
-        }
+        if (!onClickFilterStatus) return;
+        onClickFilterStatus(status);
     };
 
     return (
