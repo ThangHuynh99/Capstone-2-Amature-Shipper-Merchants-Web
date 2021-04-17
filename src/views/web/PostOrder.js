@@ -33,7 +33,8 @@ function PostOrder(props) {
                 ten_nguoi_gui: userInfor.fullname,
                 phi_giao: dataPostOrder.phi_giao,
                 phi_ung: dataPostOrder.phi_ung,
-                id_shop: currentUser.uid
+                id_shop: currentUser.uid,
+                status: ""
             });
 
             //tạo bảng orderstatus

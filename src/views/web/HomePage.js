@@ -1,55 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { db, realtime } from "../../firebase";
-import AsideRight from "../../conponents/pages/AsideRight";
-import AsideLeft from "../../conponents/pages/AsideLeft";
-import MainHomePage from "../../conponents/pages/MainHomePage";
-import { useAuth } from "../../context/AuthContext";
-import moment from 'moment';
+import React, { useState, useEffect } from 'react';
+import { db, realtime } from '../../firebase';
+import AsideRight from '../../conponents/pages/AsideRight';
+import AsideLeft from '../../conponents/pages/AsideLeft';
+import MainHomePage from '../../conponents/pages/MainHomePage';
+import { useAuth } from '../../context/AuthContext';
 
 function HomePage() {
     const { currentUser } = useAuth();
 
-    const [id, setId] = useState(currentUser.uid)
+    const [id, setId] = useState(currentUser.uid);
     const [input, setInput] = useState({
-        fullname: "",
-        phone: "",
-        address: ""
-    })
-    const [transaction, setTransaction] = useState({
+        fullname: '',
+        phone: '',
+        address: '',
+    });
 
-    })
-
-    const [data, setData] = useState(
-        {
-            id_post: "",
-            id_shop: "",
-            km: "",
-            noi_giao: "",
-            thoi_gian: "",
-            phi_giao: "",
-            phi_ung: "",
-            status: "",
-            ghi_chu: ""
-        }
-    );
+    const [data, setData] = useState({
+        id_post: '',
+        id_shop: '',
+        km: '',
+        noi_giao: '',
+        thoi_gian: '',
+        phi_giao: '',
+        phi_ung: '',
+        status: '',
+        ghi_chu: '',
+    });
 
     //fetch user infor
     useEffect(() => {
         async function fetchUserInfor() {
             try {
                 await db
-                    .collection("ShopProfile")
+                    .collection('ShopProfile')
                     .doc(id)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
-                            setInput(
-                                doc.data()
-                            );
+                            setInput(doc.data());
                         } else {
-                            console.log("No such document!");
+                            console.log('No such document!');
                         }
-                    })
+                    });
             } catch (error) {
                 console.log(error);
             }
@@ -61,83 +53,22 @@ function HomePage() {
     useEffect(() => {
         async function fetchOrder() {
             try {
-                await realtime.ref("OrderStatus/" + id).orderByChild("thoi_gian").startAfter(moment().subtract(1, "days").format('X')).on('value', (snapshot) => {
-                    setData(snapshot.val())
-                    console.log(snapshot.val())
-                })
+                await realtime.ref('OrderStatus/' + id).on('value', (snapshot) => {
+                    setData(snapshot.val());
+                    console.log(snapshot.val());
+                });
             } catch (error) {
                 console.log(error);
             }
         }
-        fetchOrder()
-    }, [])
-    console.log("end date " + moment().subtract(5, "days").format('X'))
-
-    //thay đổi view đơn theo trạng thái.
-    function ChangeStatus(data, date) {
-        // console.log("Start date " + moment().format('X'))
-        // console.log("end date " +  moment().subtract(5, "days").format('X'))
-        if (data !== "") {
-            if (date) {
-                async function FetchOrderByStatus() {
-                    try {
-                        await realtime.ref('/OrderStatus/' + id).orderByChild('status').equalTo(data).orderByChild('thoi_gian').startAfter(moment().subtract(date, "days")).on('value', (snapshot) => {
-                            setData(snapshot.val())
-                            console.log(snapshot.val())
-                        })
-                    } catch (e) {
-                        console.log(e)
-                    }
-                }
-                FetchOrderByStatus()
-            } else {
-                async function FetchOrderByStatus() {
-                    try {
-                        await realtime.ref('/OrderStatus/' + id).orderByChild('status').equalTo(data).orderByChild('thoi_gian').startAfter(moment().subtract(1, "days")).on('value', (snapshot) => {
-                            setData(snapshot.val())
-                            console.log(snapshot.val())
-                        })
-                    } catch (e) {
-                        console.log(e)
-                    }
-                }
-                FetchOrderByStatus()
-            }
-        } else {
-            if (date) {
-                async function fetchOrder() {
-                    try {
-                        await realtime.ref("OrderStatus/" + id).orderByChild('thoi_gian').startAfter(moment().subtract(date, "days")).on('value', (snapshot) => {
-                            setData(snapshot.val())
-                            console.log(snapshot.val())
-                        })
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
-                fetchOrder()
-            } else {
-                async function fetchOrder() {
-                    try {
-                        await realtime.ref("OrderStatus/" + id).orderByChild('thoi_gian').startAfter(moment().subtract(1, "days")).on('value', (snapshot) => {
-                            setData(snapshot.val())
-                            console.log(snapshot.val())
-                        })
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
-                fetchOrder()
-            }
-        }
-    }
-
+        fetchOrder();
+    }, []);
 
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
-                <MainHomePage datas={data} ChangeOrderStatus={ChangeStatus} />
+                <MainHomePage datas={data} />
                 <AsideRight name={input.fullname} />
             </div>
         </div>
