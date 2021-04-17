@@ -140,6 +140,10 @@ body {
     border-radius: 0.675rem;
 }
 
+.order {
+    cursor: pointer;
+}
+
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -229,6 +233,11 @@ body {
 }
 
 .label-canceled {
+    color: #f64e60;
+    background-color: #ffe2e5;
+}
+
+.label-chartjs {
     color: #f64e60;
     background-color: #ffe2e5;
 }
