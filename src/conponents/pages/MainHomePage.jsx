@@ -146,7 +146,7 @@ function MainHomePage(props) {
                         <h3>không có đơn nào</h3>
                     )}
 
-                    <Modal size="lg" show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+                    <Modal size="lg" show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
                             <Modal.Title>Chi tiết đơn #{dataModal.id_post}</Modal.Title>
                         </Modal.Header>

@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
-import PropTypes from "prop-types";
-import Header from "../common/Header";
-import Footer from "../common/Footer";
-import random from "randomstring";
-import moment from "moment";
+import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import Header from '../common/Header';
+import Footer from '../common/Footer';
+import random from 'randomstring';
+import moment from 'moment';
 
 MainPostOrder.propTypes = {
     postOrder: PropTypes.func,
@@ -16,7 +16,7 @@ MainPostOrder.defaultProps = {
 function MainPostOrder(props) {
     const { postOrder } = props;
 
-    const dateTime = moment().format("X");
+    const dateTime = moment().format('X');
     // console.log(dateTime);
     // const test = moment().subtract(1, 'day').format('X');
     // console.log(test);
@@ -46,70 +46,49 @@ function MainPostOrder(props) {
     const [district, setDistrict] = useState();
 
     const dataList = {
-        "Cẩm Lệ": [
-            "Hòa An",
-            "Hòa Phát",
-            "Hòa Thọ Đông",
-            "Hòa Thọ Tây",
-            "Hòa Xuân",
-            "Khuê Trung",
+        'Cẩm Lệ': ['Hòa An', 'Hòa Phát', 'Hòa Thọ Đông', 'Hòa Thọ Tây', 'Hòa Xuân', 'Khuê Trung'],
+        'Hải Châu': [
+            'Bình Hiên',
+            'Bình Thuận',
+            'Hải Châu 1',
+            'Hải Châu 2',
+            'Hòa Cương Bắc',
+            'Hòa Cường Nam',
+            'Hòa Thuận Đông',
+            'Hòa Thuận Tây',
+            'Nam Dương',
+            'Phước Ninh',
+            'Thạch Thang',
+            'Thạnh Bình',
+            'Thuận Phước',
         ],
-        "Hải Châu": [
-            "Bình Hiên",
-            "Bình Thuận",
-            "Hải Châu 1",
-            "Hải Châu 2",
-            "Hòa Cương Bắc",
-            "Hòa Cường Nam",
-            "Hòa Thuận Đông",
-            "Hòa Thuận Tây",
-            "Nam Dương",
-            "Phước Ninh",
-            "Thạch Thang",
-            "Thạnh Bình",
-            "Thuận Phước",
+        'Liên Chiểu': ['Hòa Hiệp Bắc', 'Hòa Hiệp Nam', 'Hòa Khánh Bắc', 'Hòa Khánh Nam', 'Hòa Minh'],
+        'Ngũ Hành Sơn': ['Hòa Hải', 'Hòa Quý', 'Khuê Mỹ', 'Mỹ An'],
+        'Sơn Trà': ['An Hải Bắc', 'An Hải Đông', 'An Hải Tây', 'Mân Thái', 'Nại Hiên Đông', 'Phước Mỹ', 'Thọ Quang'],
+        'Thanh Khê': [
+            'An Khê',
+            'Chính Gián',
+            'Hòa Khê',
+            'Tam Thuận',
+            'Tân Chính',
+            'Thạc Gián',
+            'Thanh Khê Đông',
+            'Thanh Khê Tây',
+            'Vĩnh Trung',
+            'Xuân Hà',
         ],
-        "Liên Chiểu": [
-            "Hòa Hiệp Bắc",
-            "Hòa Hiệp Nam",
-            "Hòa Khánh Bắc",
-            "Hòa Khánh Nam",
-            "Hòa Minh",
-        ],
-        "Ngũ Hành Sơn": ["Hòa Hải", "Hòa Quý", "Khuê Mỹ", "Mỹ An"],
-        "Sơn Trà": [
-            "An Hải Bắc",
-            "An Hải Đông",
-            "An Hải Tây",
-            "Mân Thái",
-            "Nại Hiên Đông",
-            "Phước Mỹ",
-            "Thọ Quang",
-        ],
-        "Thanh Khê": [
-            "An Khê",
-            "Chính Gián",
-            "Hòa Khê",
-            "Tam Thuận",
-            "Tân Chính",
-            "Thạc Gián",
-            "Thanh Khê Đông",
-            "Thanh Khê Tây",
-            "Vĩnh Trung",
-            "Xuân Hà",
-        ],
-        "Hòa Vang": [
-            "Xã Hòa Bắc",
-            "Xã Hòa Châu",
-            "Xã Hòa Khương",
-            "Xã Hòa Liên",
-            "Xã Hòa Nhơn",
-            "Xã Hòa Ninh",
-            "Xã Hòa Phong",
-            "Xã Hòa Phú",
-            "Xã Hòa Phước",
-            "Xã Hòa Sơn",
-            "Xã Hòa Tiến",
+        'Hòa Vang': [
+            'Xã Hòa Bắc',
+            'Xã Hòa Châu',
+            'Xã Hòa Khương',
+            'Xã Hòa Liên',
+            'Xã Hòa Nhơn',
+            'Xã Hòa Ninh',
+            'Xã Hòa Phong',
+            'Xã Hòa Phú',
+            'Xã Hòa Phước',
+            'Xã Hòa Sơn',
+            'Xã Hòa Tiến',
         ],
     };
 
@@ -150,21 +129,15 @@ function MainPostOrder(props) {
         e.preventDefault();
         const dataPostOrder = {
             idPost: idPOST,
-            noi_giao:
-                shipAddressRef.current.value +
-                ", " +
-                shipWardRef.current.value +
-                ", " +
-                shipDistrcitRef.current.value +
-                ", Đà Nẵng",
+            noi_giao: shipAddressRef.current.value + ', ' + shipWardRef.current.value + ', ' + shipDistrcitRef.current.value + ', Đà Nẵng',
             ghi_chu: noteRef.current.value,
-            km: "3km",
+            km: '3km',
             thoi_gian: dateTime,
             sdt_nguoi_nhan: numberRef.current.value,
             ten_nguoi_nhan: customerRef.current.value,
             phi_giao: shipFeeRef.current.value,
             phi_ung: depositFeeRef.current.value,
-            id_roomchat: idChat 
+            id_roomchat: idChat,
         };
 
         if (postOrder) {
@@ -178,29 +151,18 @@ function MainPostOrder(props) {
             <section className="content d-flex flex-column flex-column-fluid">
                 {/* core content */}
                 <div className="core d-flex flex-column flex-row-fluid container">
-                    <div
-                        className="card card-custom card-sticky"
-                        id="on_page_sticky_card"
-                    >
+                    <div className="card card-custom card-sticky" id="on_page_sticky_card">
                         <form className="form" onSubmit={handleSubmit}>
                             <header className="card-header py-3">
                                 <div className="card-title align-items-start flex-column">
                                     <h3 className="card-label">Đăng đơn</h3>
-                                    <span className="text-muted font-size-sm mt-1">
-                                        Đăng đơn ngay còn lại để chúng tôi lo
-                                    </span>
+                                    <span className="text-muted font-size-sm mt-1">Đăng đơn ngay còn lại để chúng tôi lo</span>
                                 </div>
                                 <div className="card-toolbar">
-                                    <button
-                                        type="submit"
-                                        className="btn btn-chartjs mr-2"
-                                    >
+                                    <button type="submit" className="btn btn-chartjs mr-2">
                                         Đăng ngay
                                     </button>
-                                    <button
-                                        type="button"
-                                        className="btn btn-light mr-2"
-                                    >
+                                    <button type="button" className="btn btn-light mr-2">
                                         Làm lại
                                     </button>
                                 </div>
@@ -209,10 +171,7 @@ function MainPostOrder(props) {
                             <div className="card-body">
                                 {/* customer name */}
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="fullname"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
+                                    <label htmlFor="fullname" className="col-xl-3 col-lg-4 col-form-label">
                                         Khách hàng
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
@@ -228,10 +187,7 @@ function MainPostOrder(props) {
                                 </div>
                                 {/* phone number */}
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="phone_inputmask"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
+                                    <label htmlFor="phone_inputmask" className="col-xl-3 col-lg-4 col-form-label">
                                         Số điện thoại
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
@@ -247,58 +203,33 @@ function MainPostOrder(props) {
                                 </div>
                                 {/* ship fee */}
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="ship_inputmask"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
+                                    <label htmlFor="ship_inputmask" className="col-xl-3 col-lg-4 col-form-label">
                                         Chi phí giao hàng
                                     </label>
                                     <div className="col-xl-9 col-lg-8 input-group">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="ship_inputmask"
-                                            placeholder={0}
-                                            ref={shipFeeRef}
-                                        />
+                                        <input type="text" className="form-control" id="ship_inputmask" placeholder={0} ref={shipFeeRef} />
                                         <div className="input-group-append">
-                                            <span className="input-group-text">
-                                                VND
-                                            </span>
+                                            <span className="input-group-text">VND</span>
                                         </div>
                                         {/* <span class="form-text text-muted">Some help content goes here</span> */}
                                     </div>
                                 </div>
                                 {/* temp fee */}
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="temp"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
+                                    <label htmlFor="temp" className="col-xl-3 col-lg-4 col-form-label">
                                         Tạm ứng
                                     </label>
                                     <div className="col-xl-9 col-lg-8 input-group">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="temp_inputmask"
-                                            placeholder={0}
-                                            ref={depositFeeRef}
-                                        />
+                                        <input type="text" className="form-control" id="temp_inputmask" placeholder={0} ref={depositFeeRef} />
                                         <div className="input-group-append">
-                                            <span className="input-group-text">
-                                                VND
-                                            </span>
+                                            <span className="input-group-text">VND</span>
                                         </div>
                                         {/* <span class="form-text text-muted">Some help content goes here</span> */}
                                     </div>
                                 </div>
                                 <div className="separator separator-dashed my-5" />
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="note"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
+                                    <label htmlFor="note" className="col-xl-3 col-lg-4 col-form-label">
                                         Ghi chú
                                     </label>
                                     <div className="col-xl-9 col-lg-8 input-group">
@@ -317,9 +248,7 @@ function MainPostOrder(props) {
                                 <div className="row">
                                     <label className="col-xl-3 col-lg-4" />
                                     <div className="col-xl-9 col-lg-8">
-                                        <h5 className="font-weight-normal mt-0 mb-6">
-                                            Địa chỉ lấy hàng mặc định
-                                        </h5>
+                                        <h5 className="font-weight-normal mt-0 mb-6">Địa chỉ lấy hàng mặc định</h5>
                                     </div>
                                 </div>
 
@@ -328,11 +257,7 @@ function MainPostOrder(props) {
                                     <div className="col-xl-9 col-lg-8">
                                         <span className="switch">
                                             <label>
-                                                <input
-                                                    type="checkbox"
-                                                    defaultChecked="checked"
-                                                    name="select"
-                                                />
+                                                <input type="checkbox" defaultChecked="checked" name="select" />
                                                 <span />
                                             </label>
                                         </span>
@@ -342,17 +267,12 @@ function MainPostOrder(props) {
                                 <div className="row">
                                     <label className="col-xl-3 col-lg-4" />
                                     <div className="col-xl-9 col-lg-8">
-                                        <h5 className="font-weight-normal mt-10 mb-6">
-                                            Địa chỉ giao hàng tới
-                                        </h5>
+                                        <h5 className="font-weight-normal mt-10 mb-6">Địa chỉ giao hàng tới</h5>
                                     </div>
                                 </div>
                                 {/* Tỉnh/Thành phố */}
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="city"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
+                                    <label htmlFor="city" className="col-xl-3 col-lg-4 col-form-label">
                                         Tỉnh/Thành phố
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
@@ -368,11 +288,8 @@ function MainPostOrder(props) {
 
                                 {/* Huyện */}
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="district"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
-                                        Huyện
+                                    <label htmlFor="district" className="col-xl-3 col-lg-4 col-form-label">
+                                        Quận/Huyện
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
                                         <select
@@ -381,7 +298,7 @@ function MainPostOrder(props) {
                                             onChange={handleDistrictChange}
                                             ref={shipDistrcitRef}
                                         >
-                                            <option value="">Chọn Huyện</option>
+                                            <option value="">Chọn Quận/Huyện</option>
                                             {districtList()}
                                         </select>
                                     </div>
@@ -389,19 +306,12 @@ function MainPostOrder(props) {
 
                                 {/* Xã */}
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="ward"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
-                                        Xã
+                                    <label htmlFor="ward" className="col-xl-3 col-lg-4 col-form-label">
+                                        Phường/Xã
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select
-                                            className="form-control form-control-lg"
-                                            id="ward"
-                                            ref={shipWardRef}
-                                        >
-                                            <option value="">Chọn Xã</option>
+                                        <select className="form-control form-control-lg" id="ward" ref={shipWardRef}>
+                                            <option value="">Chọn Phường/Xã</option>
                                             {wardList()}
                                         </select>
                                     </div>
@@ -409,10 +319,7 @@ function MainPostOrder(props) {
 
                                 {/* Địa chỉ */}
                                 <div className="form-group row">
-                                    <label
-                                        htmlFor="address"
-                                        className="col-xl-3 col-lg-4 col-form-label"
-                                    >
+                                    <label htmlFor="address" className="col-xl-3 col-lg-4 col-form-label">
                                         Địa chỉ
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
