@@ -4,11 +4,12 @@ import AsideRight from '../../conponents/pages/AsideRight';
 import AsideLeft from '../../conponents/pages/AsideLeft';
 import MainHomePage from '../../conponents/pages/MainHomePage';
 import { useAuth } from '../../context/AuthContext';
+import { useHistory } from 'react-router';
 
 function HomePage() {
     const { currentUser } = useAuth();
-
-    const [id, setId] = useState(currentUser.uid);
+    
+    const [id] = useState(currentUser.uid);
     const [input, setInput] = useState({
         fullname: '',
         phone: '',
@@ -64,11 +65,20 @@ function HomePage() {
         fetchOrder();
     }, []);
 
+    async function handleDeleteOrder(id){
+        try {
+            await realtime.ref('newsfeed/' + id).remove()
+            await realtime.ref('OrderStatus/'+ currentUser.uid + "/" + id).remove()
+            await realtime.ref('newsfeed/' + id).remove()
+        } catch(e){
+            console.log(e)
+        }
+    }
     return (
         <div className="header-fixed sidebar-enabled bg">
             <div className="d-flex flex-row flex-column-fluid page">
                 <AsideLeft />
-                <MainHomePage datas={data} />
+                <MainHomePage datas={data} DeleteOrder={handleDeleteOrder} />
                 <AsideRight name={input.fullname} />
             </div>
         </div>

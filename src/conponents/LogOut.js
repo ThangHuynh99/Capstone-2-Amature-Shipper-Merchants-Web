@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 
 function Signout() {
 
-    const [error, setError] = useState('');
-    const { currentUser, logout } = useAuth();
+    const [ setError] = useState('');
+    const {  logout } = useAuth();
     const history = useHistory();
 
     async function handleLogout() {

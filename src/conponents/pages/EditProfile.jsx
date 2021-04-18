@@ -19,7 +19,6 @@ EditProfile.defaultProps = {
 
 function EditProfile(props) {
     const { user, edit } = props;
-    const history = useHistory();
 
     const fullNameRef = useRef();
     const phoneRef = useRef();

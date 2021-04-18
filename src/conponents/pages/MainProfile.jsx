@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
-import { useHistory } from "react-router";
-import { db } from "../../firebase";
 import Avatar from "../../assets/media/avatar.png";
 import { Alert } from "react-bootstrap";
 

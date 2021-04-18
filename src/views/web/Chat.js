@@ -3,9 +3,6 @@ import {
     Container, 
     Row, 
     Col,
-    Card,
-    CardBody,
-    CardSubtitle,
     Button,
     Form,
     InputGroup,
@@ -26,7 +23,7 @@ Chat2.propTypes = {
 
 function Chat2(props) {
     const [chats, setChats] = useState([]);
-    const [name, setName] = useState('ThangHuynh');
+    const [name] = useState('ThangHuynh');
     const [newchat, setNewchat] = useState({id:'ThangHuynh', imgmessage:'', message: '', date: '' });
  
     useEffect(() => {

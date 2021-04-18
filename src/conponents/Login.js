@@ -11,18 +11,13 @@ function Login1(props) {
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const history = useHistory();
 
     const { signin } = useAuth();
-    let url = props.location.search;
-    const [params, setParams] = useState('');
-    const para = Stringquery.parse(url);
-
+ 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
