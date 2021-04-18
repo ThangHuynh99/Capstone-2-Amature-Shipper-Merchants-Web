@@ -179,7 +179,7 @@ function MainPostOrder(props) {
                             <header className="card-header py-3">
                                 <div className="card-title align-items-start flex-column">
                                     <h3 className="card-label">Đăng đơn</h3>
-                                    <span className="text-muted font-size-sm mt-1">Đăng đơn ngay còn lại để chúng tôi lo</span>
+                                    <span className="text-muted font-size-sm mt-1">Hãy tạo đơn mới ngay bây giờ nhé!</span>
                                 </div>
                                 <div className="card-toolbar">
                                     <button type="submit" className="btn btn-chartjs mr-2">

@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react';
 
 export default function InProcessing() {
-    return <span className="label label-lg label-inprogress label-inline py-4 col-auto">Đang xử lý</span>;
+    return <span className="label label-lg label-inprogress label-inline ml-3 py-4 flex-shrink-0">Đang xử lý</span>;
 }
