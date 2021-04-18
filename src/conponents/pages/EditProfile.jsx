@@ -9,12 +9,12 @@ import { Link } from 'react-router-dom';
 
 EditProfile.propTypes = {
     user: PropTypes.object,
-    edit: PropTypes.func
+    edit: PropTypes.func,
 };
 
 EditProfile.defaultProps = {
     user: '',
-    edit: null
+    edit: null,
 };
 
 function EditProfile(props) {
@@ -26,8 +26,11 @@ function EditProfile(props) {
     const wardRef = useRef();
     const districtRef = useRef();
 
+    //////////////////////////////////////////////////////
     const [district, setDistrict] = useState();
+    const [ward, setWard] = useState();
 
+    //////////////////////////////////////////////////////
     const dataList = {
         'Quận Cẩm Lệ': ['Phường Hòa An', 'Phường Hòa Phát', 'Phường Hòa Thọ Đông', 'Phường Hòa Thọ Tây', 'Phường Hòa Xuân', 'Phường Khuê Trung'],
         'Quận Hải Châu': [
@@ -83,44 +86,54 @@ function EditProfile(props) {
         ],
     };
 
-    // Danh sách Quận
-    function districtList() {
-        let items = [];
+    //////////////////////////////////////////////////////
+    // ! Danh sách Quận
+    //////////////////////////////////////////////////////
+    const districtList = () => {
+        const items = [];
 
-        for (var district in dataList) {
+        for (const district in dataList) {
             items.push(<option value={district}>{district}</option>);
         }
         return items;
-    }
+    };
 
-    // Danh sách Phường
-    function wardList() {
-        let items = [];
-        // Nếu đã chọn Quận => trả về DS Phường
-        if (dataList[district]) {
-            for (var i = 0; i < dataList[district].length; i++) {
-                var ward = dataList[district][i];
-                items.push(<option value={ward}>{ward}</option>);
-            }
-        }
+    //////////////////////////////////////////////////////
+    // ! Danh sách Phường
+    //////////////////////////////////////////////////////
+    const wardList = () => {
+        if (!district) return;
+        const items = [];
+        Object.values(dataList[district]).map((data, index) => {
+            items.push(
+                <option key={index} value={data}>
+                    {data}
+                </option>
+            );
+        });
         return items;
-    }
+    };
 
-    // Chọn Quận, check thay đổi
-    function handleDistrictChange(e) {
-        if (e.target.value) {
+    //////////////////////////////////////////////////////
+    // ! Reset old selection
+    //////////////////////////////////////////////////////
+    const handleDistrictChange = (e) => {
+        if (e.target.value || e.target.value === '') {
             setDistrict(e.target.value);
-        } else {
-            setDistrict(null);
+            setWard('');
         }
-    }
+    };
 
     //form handle
     function handleSubmit(e) {
         e.preventDefault();
-       if(edit){
-            edit(fullNameRef.current.value, phoneRef.current.value, addressRef.current.value + ', ' + wardRef.current.value + ', ' + districtRef.current.value + ', Thành phố Đà Nẵng');
-       }
+        if (edit) {
+            edit(
+                fullNameRef.current.value,
+                phoneRef.current.value,
+                addressRef.current.value + ', ' + wardRef.current.value + ', ' + districtRef.current.value + ', Thành phố Đà Nẵng'
+            );
+        }
     }
 
     return (
@@ -285,7 +298,7 @@ function EditProfile(props) {
                                     </div>
                                 </div>
 
-                                {/* Quận/Huyện */}
+                                {/* Huyện */}
                                 <div className="form-group row">
                                     <label htmlFor="district" className="col-xl-3 col-lg-4 col-form-label">
                                         Quận/Huyện
@@ -293,9 +306,10 @@ function EditProfile(props) {
                                     <div className="col-xl-9 col-lg-8">
                                         <select
                                             className="form-control form-control-lg"
-                                            ref={districtRef}
                                             id="district"
+                                            value={district}
                                             onChange={handleDistrictChange}
+                                            ref={districtRef}
                                         >
                                             <option value="">Chọn Quận/Huyện</option>
                                             {districtList()}
@@ -303,13 +317,19 @@ function EditProfile(props) {
                                     </div>
                                 </div>
 
-                                {/* Phường/Xã */}
+                                {/* Xã */}
                                 <div className="form-group row">
                                     <label htmlFor="ward" className="col-xl-3 col-lg-4 col-form-label">
                                         Phường/Xã
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" ref={wardRef} id="ward">
+                                        <select
+                                            className="form-control form-control-lg"
+                                            id="ward"
+                                            value={ward}
+                                            onChange={(e) => setWard(e.target.value)}
+                                            ref={wardRef}
+                                        >
                                             <option value="">Chọn Phường/Xã</option>
                                             {wardList()}
                                         </select>
@@ -325,6 +345,7 @@ function EditProfile(props) {
                                         <input
                                             className="form-control form-control-lg"
                                             type="text"
+                                            maxLength={50}
                                             id="address"
                                             placeholder="Số nhà, tên đường"
                                             ref={addressRef}

@@ -14,19 +14,23 @@ MainPostOrder.defaultProps = {
 };
 
 function MainPostOrder(props) {
+    //////////////////////////////////////////////////////
     const { postOrder } = props;
 
+    //////////////////////////////////////////////////////
     const dateTime = moment().format('X');
     // console.log(dateTime);
     // const test = moment().subtract(1, 'day').format('X');
     // console.log(test);
 
-    const idPOST =
+    //////////////////////////////////////////////////////
+    const idPost =
         moment().format('YYYYMMDD-HHmmssSSS') +
         random.generate({
             length: 3,
             charset: 'numeric',
         });
+
     const idChat =
         moment().format('YYYYMMDD-HHmmssSSS') +
         random.generate({
@@ -34,6 +38,7 @@ function MainPostOrder(props) {
             charset: 'numeric',
         });
 
+    //////////////////////////////////////////////////////
     const customerRef = useRef();
     const numberRef = useRef();
     const shipFeeRef = useRef();
@@ -43,41 +48,52 @@ function MainPostOrder(props) {
     const shipWardRef = useRef();
     const shipAddressRef = useRef();
 
+    //////////////////////////////////////////////////////
     const [district, setDistrict] = useState();
+    const [ward, setWard] = useState();
 
+    //////////////////////////////////////////////////////
     const dataList = {
-        'Cẩm Lệ': ['Hòa An', 'Hòa Phát', 'Hòa Thọ Đông', 'Hòa Thọ Tây', 'Hòa Xuân', 'Khuê Trung'],
-        'Hải Châu': [
-            'Bình Hiên',
-            'Bình Thuận',
-            'Hải Châu 1',
-            'Hải Châu 2',
-            'Hòa Cương Bắc',
-            'Hòa Cường Nam',
-            'Hòa Thuận Đông',
-            'Hòa Thuận Tây',
-            'Nam Dương',
-            'Phước Ninh',
-            'Thạch Thang',
-            'Thạnh Bình',
-            'Thuận Phước',
+        'Quận Cẩm Lệ': ['Phường Hòa An', 'Phường Hòa Phát', 'Phường Hòa Thọ Đông', 'Phường Hòa Thọ Tây', 'Phường Hòa Xuân', 'Phường Khuê Trung'],
+        'Quận Hải Châu': [
+            'Phường Bình Hiên',
+            'Phường Bình Thuận',
+            'Phường Hải Châu 1',
+            'Phường Hải Châu 2',
+            'Phường Hòa Cương Bắc',
+            'Phường Hòa Cường Nam',
+            'Phường Hòa Thuận Đông',
+            'Phường Hòa Thuận Tây',
+            'Phường Nam Dương',
+            'Phường Phước Ninh',
+            'Phường Thạch Thang',
+            'Phường Thạnh Bình',
+            'Phường Thuận Phước',
         ],
-        'Liên Chiểu': ['Hòa Hiệp Bắc', 'Hòa Hiệp Nam', 'Hòa Khánh Bắc', 'Hòa Khánh Nam', 'Hòa Minh'],
-        'Ngũ Hành Sơn': ['Hòa Hải', 'Hòa Quý', 'Khuê Mỹ', 'Mỹ An'],
-        'Sơn Trà': ['An Hải Bắc', 'An Hải Đông', 'An Hải Tây', 'Mân Thái', 'Nại Hiên Đông', 'Phước Mỹ', 'Thọ Quang'],
-        'Thanh Khê': [
-            'An Khê',
-            'Chính Gián',
-            'Hòa Khê',
-            'Tam Thuận',
-            'Tân Chính',
-            'Thạc Gián',
-            'Thanh Khê Đông',
-            'Thanh Khê Tây',
-            'Vĩnh Trung',
-            'Xuân Hà',
+        'Quận Liên Chiểu': ['Phường Hòa Hiệp Bắc', 'Phường Hòa Hiệp Nam', 'Phường Hòa Khánh Bắc', 'Phường Hòa Khánh Nam', 'Phường Hòa Minh'],
+        'Quận Ngũ Hành Sơn': ['Phường Hòa Hải', 'Phường Hòa Quý', 'Phường Khuê Mỹ', 'Phường Mỹ An'],
+        'Quận Sơn Trà': [
+            'Phường An Hải Bắc',
+            'Phường An Hải Đông',
+            'Phường An Hải Tây',
+            'Phường Mân Thái',
+            'Phường Nại Hiên Đông',
+            'Phường Phước Mỹ',
+            'Phường Thọ Quang',
         ],
-        'Hòa Vang': [
+        'Quận Thanh Khê': [
+            'Phường An Khê',
+            'Phường Chính Gián',
+            'Phường Hòa Khê',
+            'Phường Tam Thuận',
+            'Phường Tân Chính',
+            'Phường Thạc Gián',
+            'Phường Thanh Khê Đông',
+            'Phường Thanh Khê Tây',
+            'Phường Vĩnh Trung',
+            'Phường Xuân Hà',
+        ],
+        'Huyện Hòa Vang': [
             'Xã Hòa Bắc',
             'Xã Hòa Châu',
             'Xã Hòa Khương',
@@ -92,44 +108,51 @@ function MainPostOrder(props) {
         ],
     };
 
-    // Danh sách Quận
-    function districtList() {
-        let items = [];
+    //////////////////////////////////////////////////////
+    // ! Danh sách Quận
+    //////////////////////////////////////////////////////
+    const districtList = () => {
+        const items = [];
 
-        for (var district in dataList) {
+        for (const district in dataList) {
             items.push(<option value={district}>{district}</option>);
         }
         return items;
-    }
+    };
 
-    // Danh sách Phường
-    function wardList() {
-        let items = [];
-        // Nếu đã chọn => trả về DS Phường
-        if (dataList[district]) {
-            for (var i = 0; i < dataList[district].length; i++) {
-                var ward = dataList[district][i];
-                items.push(<option value={ward}>{ward}</option>);
-            }
-        }
+    //////////////////////////////////////////////////////
+    // ! Danh sách Phường
+    //////////////////////////////////////////////////////
+    const wardList = () => {
+        if (!district) return;
+        const items = [];
+        Object.values(dataList[district]).map((data, index) => {
+            items.push(
+                <option key={index} value={data}>
+                    {data}
+                </option>
+            );
+        });
         return items;
-    }
+    };
 
-    // Chọn  check thay đổi
-    function handleDistrictChange(e) {
-        if (e.target.value) {
+    //////////////////////////////////////////////////////
+    // ! Reset old selection
+    //////////////////////////////////////////////////////
+    const handleDistrictChange = (e) => {
+        if (e.target.value || e.target.value === '') {
             setDistrict(e.target.value);
-        } else {
-            setDistrict(null);
+            setWard('');
         }
-    }
+    };
 
-    //handle submitForm
+    //////////////////////////////////////////////////////
+    // Handle submitForm
     function handleSubmit(e) {
         e.preventDefault();
         const dataPostOrder = {
-            idPost: idPOST,
-            noi_giao: shipAddressRef.current.value + ', ' + shipWardRef.current.value + ', ' + shipDistrcitRef.current.value + ', Đà Nẵng',
+            idPost: idPost,
+            noi_giao: shipAddressRef.current.value + ', ' + shipWardRef.current.value + ', ' + shipDistrcitRef.current.value + ', Thành phố Đà Nẵng',
             ghi_chu: noteRef.current.value,
             km: '3km',
             thoi_gian: dateTime,
@@ -295,6 +318,7 @@ function MainPostOrder(props) {
                                         <select
                                             className="form-control form-control-lg"
                                             id="district"
+                                            value={district}
                                             onChange={handleDistrictChange}
                                             ref={shipDistrcitRef}
                                         >
@@ -310,7 +334,13 @@ function MainPostOrder(props) {
                                         Phường/Xã
                                     </label>
                                     <div className="col-xl-9 col-lg-8">
-                                        <select className="form-control form-control-lg" id="ward" ref={shipWardRef}>
+                                        <select
+                                            className="form-control form-control-lg"
+                                            id="ward"
+                                            value={ward}
+                                            onChange={(e) => setWard(e.target.value)}
+                                            ref={shipWardRef}
+                                        >
                                             <option value="">Chọn Phường/Xã</option>
                                             {wardList()}
                                         </select>

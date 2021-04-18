@@ -138,7 +138,7 @@ function MainHomePage(props) {
                                         <span className="bullet bullet-bar bg-orange align-self-stretch" />
                                         <div className="d-flex flex-column flex-grow-1 ml-4">
                                             <header className="card-title content">
-                                                <span>{data.id_post}</span>
+                                                <span>Order ID: {data.id_post}</span>
                                                 <span>
                                                     {dateToFromNowDaily(
                                                         data.thoi_gian
@@ -148,10 +148,7 @@ function MainHomePage(props) {
                                             </header>
                                             <section className="card-info content">
                                                 <p>
-                                                    <span className="payment">
-                                                        {data.phi_giao} - Tiền
-                                                        mặt
-                                                    </span>
+                                                    <span className="font-weight-bold">{data.phi_giao} - Tiền mặt</span>
                                                     <br />
                                                     <span>
                                                         {data.ten_nguoi_nhan} -{" "}
@@ -199,8 +196,8 @@ function MainHomePage(props) {
                             <div className="d-flex align-items-start">
                                 <span className="bullet bullet-bar bg-orange align-self-stretch" />
                                 <div className="d-flex flex-column flex-grow-1 ml-4">
-                                    <header className="card-title content">
-                                        <span>No.{dataModal.id_post}</span>
+                                    <header className="card-title content mb-4">
+                                        <span>Order ID: {dataModal.id_post}</span>
                                         <span>
                                             {dateToFromNowDaily(
                                                 dataModal.thoi_gian
@@ -211,16 +208,7 @@ function MainHomePage(props) {
                                     <section className="card-info content">
                                         <div className="mb-5">
                                             <p>
-                                                Tên khách hàng:
-                                                <span className="font-weight-bold ml-2">
-                                                    {dataModal.ten_nguoi_nhan}
-                                                </span>
-                                            </p>
-                                            <p>
-                                                Số điện thoại:
-                                                <span className="font-weight-bold ml-2">
-                                                    {dataModal.sdt_nguoi_nhan}
-                                                </span>
+                                                Số điện thoại:<span className="font-weight-bold ml-2">{dataModal.sdt_nguoi_nhan}</span>
                                             </p>
                                             <p>
                                                 Chi phí giao hàng:
